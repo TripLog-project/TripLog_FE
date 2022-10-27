@@ -1,12 +1,10 @@
 /* global kakao */
 import { useState, useEffect } from 'react';
-import {Container, Row, Col, Badge, Card } from 'react-bootstrap';
+import {Container, Row, Col, Button, Badge, Card, Image, Form } from 'react-bootstrap';
 import axios from 'axios';
 import Footer from '../../components/Footer';
 import Nav from '../../components/Nav';
 import { useParams } from 'react-router-dom';
-import Review from '../../components/Review';
-import ReviewBox from './contents/Review/ReviewBox';
 
 export default function Detail() {
   const params = useParams();
@@ -75,7 +73,7 @@ export default function Detail() {
         </Col>
 
         <Col>
-          <Card className="mt-3 " style={{overflowY: "scroll"}}>
+          <Card className="mt-3" >
             <Card.Body className="m-2" style={{height: '40vh'}}>
               <Badge bg="dark"className='col-2 mb-2' >맛집</Badge>
               <Card.Title className="mb-3">{tourData.title}</Card.Title>
@@ -83,8 +81,10 @@ export default function Detail() {
               <Card.Text className='mb-2 text-muted'>
                 ⭐⭐⭐⭐⭐<span>30</span> ❤ <span>2,146</span>
               </Card.Text>
-              <Card.Text >
-                <p dangerouslySetInnerHTML={{ __html: tourData.overview }}></p>
+              <Card.Text>
+                <p>
+                  {tourData.overview}
+                </p>
               </Card.Text>
             </Card.Body>
           </Card>
@@ -103,29 +103,63 @@ export default function Detail() {
             {tourData.tel}</p>
           <p> 
             <span className="fw-bold mx-5">홈페이지</span>
-            <a dangerouslySetInnerHTML={{ __html: tourData.homepage }}></a></p>
+            {tourData.homepage}</p>
         </Col>
       </Row>
 
       {/* 리뷰 */}
-      <Row className="mt-5 mb-3 mx-5 d-flex">
-          <Col className=" text-start">
-          <span className='fw-bold fs-4'>리뷰
-            <span className="text-success mx-2">684</span>
-          </span>
+      <Row className="mt-5 mb-3 mx-3">
+        <div className="d-flex">
+          <Col className="flex-fill text-center">
+            <h4>리뷰</h4>
           </Col>
-          <Col>
-          
-              
+          <Col className="flex-fill col-8">
+            <h4 className="text-primary mx-2">684</h4>
           </Col>
-          <Col className="justify-content-center">
-            
+          <Col className="flex-fill">
+            <Button variant="dark">리뷰쓰기</Button>
           </Col>
-          <ReviewBox className="col-2"/>
+        </div>
       </Row>
 
-    <Review/>
+      <Row xs={1} md={1} lg={2} className="g-4 mx-3 mb-4">
+      {Array.from({ length: 4 }).map((_, idx) => (
+        <Col>
+          <Card>
+          <Row className="mt-3">
+            <div className="d-flex align-items-center justify-content-start">
+              <Col className="col-2 mx-3">
+                <Image src="/images/imgSample.jpg" roundedCircle style={{width:"50px"}} />
+              </Col>
+              <Col className="flex-fill"> 
+                <p className="text-start fw-bold mt-2 mb-0">유저닉네임</p>
+                <p className="text-start">⭐⭐⭐⭐⭐</p>
+              </Col>
+            </div>
+          </Row>
+            <Card.Body>
+              <Card.Text>
+                This is a longer card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit
+                longer.
+                <Col>
+                  <Image src="/images/imgSample.jpg" style={{width:"100px"}} className="mt-3 mx-1"/>
+                  <Image src="/images/map_ex.png" style={{width:"100px"}} className="mt-3 mx-1"/>
+                  <Form.Group controlId="formFileSm">
+                    <Form.Control type="file" size="sm" className="mt-3" />
+                  </Form.Group>
+                </Col>
+              </Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      ))}
+    </Row>
 
+    <Row className="d-flex justify-content-center col-2 m-auto mt-4 mb-4" lg={2}>
+            <Button variant="dark" >더보기</Button>
+    </Row>
+      
     </Container>
     <Footer/>
     </>
