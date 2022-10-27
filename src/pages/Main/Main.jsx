@@ -1,68 +1,48 @@
 import React, { useState } from 'react';
-import {Container, Row, Col, Button, Card, Image, Carousel } from 'react-bootstrap';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import {Container, Row, Col, Button, Card, Image, Tabs, Tab, Carousel } from 'react-bootstrap';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import Nav from '../../components/Nav'
-import Footer from '../../components/Footer'
 
 export default function Main() {
 const navigator = useNavigate();
-
   return (
     <>
-      <Nav/>
-      <Image src="/images/mainBeach.jpg" fluid/>
+      <Image src="/images/mainImg.jpg" fluid/>
       
       <Container>
         <h1 className='fw-bold lh-base mt-5 mb-5'>Trip님,<br></br>환영합니다!</h1>
         
         <div className="d-flex justify-content-center col-8 mx-auto mb-4" >
-          <Button variant="dark mx-2 col-5" 
-            onClick={()=> {
-              navigator('/budget');
-            }}>💸 가계부</Button>
-          <Button  variant="dark col-5"
-            onClick={()=> {
-            navigator('/checklist');
-            }}>📝 여행체크리스트</Button>
+          <Button variant="dark mx-2 col-5" >💸 가계부</Button>
+          <Button  variant="dark col-5">📝 여행체크리스트</Button>
         </div>
       
         <Row className="d-flex col-8 mx-auto text-center">
-          <Col onClick={()=> {
-              navigator('/lists/1');
-            }}>
-            <p className='fs-2 mb-1'>🌆</p>
-            <p className='fw-bold'>서울</p>
-          </Col>
-          <Col onClick={()=> {
-              navigator('/lists/6');
-            }}>
-            <p className='fs-2 mb-1'>🌅 </p>
-            <p className='fw-bold'>부산</p>
-          </Col>
-          <Col onClick={()=> {
-              navigator('/lists/32');
-            }}>
-            <p className='fs-2 mb-1'>🌄</p>
-            <p className='fw-bold'>강원</p>
-          </Col>
-          <Col onClick={()=> {
-              navigator('/lists/35');
-            }}>
-            <p className='fs-2 mb-1'>🎢</p>
-            <p className='fw-bold'>경주</p>
-          </Col>
-          <Col onClick={()=> {
-              navigator('/lists/37');
-            }}>
-            <p className='fs-2 mb-1'>🍚</p>
-            <p className='fw-bold'>전주</p>
-          </Col>
-          <Col onClick={()=> {
-              navigator('/lists/39');
-            }}>
-            <p className='fs-2 mb-1'>🍊</p>
+          <Col>
+          <Link>
+            <p className='fs-2 mb-1'>🍔</p>
             <p className='fw-bold'>제주</p>
+            </Link>
+          </Col>
+          <Col>
+            <button onClick={()=> {
+              navigator('/lists/39');
+            }}>버튼</button>
+            <p className='fs-2 mb-1'>🍟</p>
+            <p className='fw-bold'>장소2</p>
+          </Col>
+          <Col>
+          
+            <p className='fs-2 mb-1'>🍤</p>
+            <p className='fw-bold'>장소1</p>
+          </Col>
+          <Col>
+            <p className='fs-2 mb-1'>🌷</p>
+            <p className='fw-bold'>장소1</p>
+          </Col>
+          <Col>
+            <p className='fs-2 mb-1'>✈</p>
+            <p className='fw-bold'>장소1</p>
           </Col>
         </Row>
         
@@ -126,7 +106,6 @@ const navigator = useNavigate();
           </Carousel.Item>
         </Carousel>
       </Container>
-      <Footer/>
     </>
   )
 }
