@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
 import ReviewWrite from './ReviewWrite';
 
-export default function ReviewBox({ setReview, title, region }) {
+export default function ReviewBox({ title, region }) {
   const [reviewWrite, setReviewWrite] = useState(false);
   const text = reviewWrite ? '리뷰닫기' : '리뷰쓰기';
-  const nickName = useSelector((state) => state.users.userNickName);
+
   const onClick = () => {
     setReviewWrite(!reviewWrite);
   };
@@ -18,9 +17,6 @@ export default function ReviewBox({ setReview, title, region }) {
       </Button>
       {reviewWrite && (
         <ReviewWrite
-          reviewAdd={reviewWrite}
-          setReviewAdd={setReviewWrite}
-          setReview={setReview}
           title={title}
           region={region}
         />
