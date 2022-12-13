@@ -4,16 +4,13 @@ import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { setAreaCode, setRegion } from '../../store/modules/triplog';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function Main() {
   let state = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
   const navigator = useNavigate();
-  const params = useParams();
-  const region = params.region;
-  const type = params.type;
 
   const nickName = useSelector((state) => state.users.userNickName);
   const [cardText] = useState([
@@ -39,15 +36,15 @@ export default function Main() {
     '전주',
     '제주',
   ]);
-  const [regionAreacode, setRegionAreacode] = useState([
-    '1',
-    '6',
-    '32',
-    '35',
-    '37',
-    '39',
-  ]);
-
+  const regionAreacode = ['1', '6', '32', '35', '37', '39'];
+  const regionCode = [
+    'seoul',
+    'busan',
+    'gangneung',
+    'gyeongju',
+    'jeonju',
+    'jeju',
+  ];
   return (
     <>
       <Nav />
@@ -106,7 +103,7 @@ export default function Main() {
             <Col
               onClick={() => {
                 dispatch(setAreaCode(regionAreacode[idx]));
-                dispatch(setRegion(regionAreacode[idx]));
+                dispatch(setRegion(regionCode[idx]));
                 navigator(`/submain/${regionAreacode[idx]}`);
               }}
               style={{ cursor: 'pointer' }}
