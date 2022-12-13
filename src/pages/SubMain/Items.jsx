@@ -5,8 +5,9 @@ import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 import CardItemLink from '../../components/CardItemLink';
-
 import data from '../../data';
+import { useSelector } from 'react-redux';
+
 // detail 페이지의 submenu 부분
 export default function Items({ text, subText, srcImg, width, height }) {
   const navigate = useNavigate();
@@ -14,18 +15,20 @@ export default function Items({ text, subText, srcImg, width, height }) {
   const areaCode = params.areaCode;
 
   const [tourData, setTourData] = useState([]);
+  const region = useSelector((state) => state.triplog.region);
 
   useEffect(() => {
     axios
       .get(
-        `https://apis.data.go.kr/B551011/KorService/areaBasedList?serviceKey=rfaoGpiapHFqOcUT6bqfERRxy1WVxzOdOpEC3ChyAFPEfONdSMdRVNETTJKRhqTbPuZ2krpG2mQJMXDbyG74RA%3D%3D&numOfRows=498&pageNo=1&MobileOS=ETC&MobileApp=TripLog&_type=json&listYN=Y&arrange=B&contentTypeId=12&areaCode=${areaCode}`
+        `https://apis.data.go.kr/B551011/KorService/areaBasedList?serviceKey=rfaoGpiapHFqOcUT6bqfERRxy1WVxzOdOpEC3ChyAFPEfONdSMdRVNETTJKRhqTbPuZ2krpG2mQJMXDbyG74RA%3D%3D&numOfRows=498&pageNo=1&MobileOS=ETC&MobileApp=TripLog&_type=json&listYN=Y&arrange=B&contentTypeId=${region}&areaCode=${areaCode}`
       )
       .then((response) => {
         setTourData(response.data.response.body.items.item);
       });
   }, []);
 
-  const [datas, setData] = useState(data);
+  const [datas, setDatas] = useState(data);
+  const [okay, setOkay] = useState(false);
 
   let h = 0;
   for (let i = 0; i < datas.length; i++) {
@@ -57,7 +60,7 @@ export default function Items({ text, subText, srcImg, width, height }) {
                     src={datas[h][2][i].firstimage}
                     title={datas[h][2][i].title}
                     onClick={() => {
-                      navigate(`/detail/${tourData.contentid}`);
+                      navigate(`/detail/${region}/${tourData.contentid}`);
                     }}
                   />
                 </>

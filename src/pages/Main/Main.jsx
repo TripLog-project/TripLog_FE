@@ -1,25 +1,51 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
-// 리듀서
 import { useDispatch, useSelector } from 'react-redux';
-import { setAreaCode } from '../../store/modules/triplog';
+import { setAreaCode, setRegion } from '../../store/modules/triplog';
+import { useParams, useNavigate } from 'react-router-dom';
 
 export default function Main() {
   let state = useSelector((state) => state.users);
 
   const dispatch = useDispatch();
   const navigator = useNavigate();
+  const params = useParams();
+  const region = params.region;
+  const type = params.type;
 
   const nickName = useSelector((state) => state.users.userNickName);
-  const [cardText, setCardText] = useState([
+  const [cardText] = useState([
     '오랜만의 서울여행! 여행 포인트 ✨',
     '고즈넉한 가을 감성 강원의 대표 명소 7',
     "요즘 부산 가면 '이곳'에 꼭 들린대요",
     '잘 몰랐던 경주 지금이 떠날 기회!',
     '복잡한 서울? Trip Log로 한번에 해결!',
+  ]);
+  const [regionIcon] = useState([
+    '/images/icons/seoul.png',
+    '/images/icons/busan.png',
+    '/images/icons/gangwon.png',
+    '/images/icons/경주.png',
+    '/images/icons/jeonju.png',
+    '/images/icons/jeju.png',
+  ]);
+  const [regionName] = useState([
+    '서울',
+    '부산',
+    '강원',
+    '경주',
+    '전주',
+    '제주',
+  ]);
+  const [regionAreacode, setRegionAreacode] = useState([
+    '1',
+    '6',
+    '32',
+    '35',
+    '37',
+    '39',
   ]);
 
   return (
@@ -76,72 +102,23 @@ export default function Main() {
           xs={3}
           className="d-flex col-lg-8 col-sm-8 mx-auto text-center mt-5"
         >
-          <Col
-            onClick={() => {
-              dispatch(setAreaCode(1));
-              navigator('/submain/1');
-              // navigator('/submain/seoul');
-            }}
-            style={{ cursor: 'pointer' }}
-          >
-            <img src="/images/icons/seoul.png" alt="서울" className="w-50" />
-            <p className="fw-bold">서울</p>
-          </Col>
-          <Col
-            onClick={() => {
-              dispatch(setAreaCode(6));
-              navigator('/submain/6');
-              // navigator('/submain/busan');
-            }}
-            style={{ cursor: 'pointer' }}
-          >
-            <img src="/images/icons/busan.png" alt="부산" className="w-50" />
-            <p className="fw-bold">부산</p>
-          </Col>
-          <Col
-            onClick={() => {
-              dispatch(setAreaCode(32));
-              navigator('/submain/32');
-              // navigator('/submain/32');
-            }}
-            style={{ cursor: 'pointer' }}
-          >
-            <img src="/images/icons/gangwon.png" alt="강원" className="w-50" />
-            <p className="fw-bold">강원</p>
-          </Col>
-          <Col
-            onClick={() => {
-              dispatch(setAreaCode(35));
-              navigator('/submain/35');
-              // navigator('/submain/gyeongju');
-            }}
-            style={{ cursor: 'pointer' }}
-          >
-            <img src="/images/icons/경주.png" alt="경주" className="w-50" />
-            <p className="fw-bold">경주</p>
-          </Col>
-          <Col
-            onClick={() => {
-              dispatch(setAreaCode(37));
-              navigator('/submain/37');
-              // navigator('/submain/jeonju');
-            }}
-            style={{ cursor: 'pointer' }}
-          >
-            <img src="/images/icons/jeonju.png" alt="전주" className="w-50" />
-            <p className="fw-bold">전주</p>
-          </Col>
-          <Col
-            onClick={() => {
-              dispatch(setAreaCode(39));
-              navigator('/submain/39');
-              // navigator('/submain/jeju');
-            }}
-            style={{ cursor: 'pointer' }}
-          >
-            <img src="/images/icons/jeju.png" alt="제주" className="w-50" />
-            <p className="fw-bold">제주</p>
-          </Col>
+          {regionIcon.map((a, idx) => (
+            <Col
+              onClick={() => {
+                dispatch(setAreaCode(regionAreacode[idx]));
+                dispatch(setRegion(regionAreacode[idx]));
+                navigator(`/submain/${regionAreacode[idx]}`);
+              }}
+              style={{ cursor: 'pointer' }}
+            >
+              <img
+                src={regionIcon[idx]}
+                alt={regionName[idx]}
+                className="w-50"
+              />
+              <p className="fw-bold">{regionName[idx]}</p>
+            </Col>
+          ))}
         </Row>
 
         <Row sm xs={1} md={2} lg={4} className="g-4 mt-3">
@@ -162,8 +139,6 @@ export default function Main() {
                           'linear-gradient(0deg, rgba(0, 0, 0, 0), #c8c8c8) ',
                         color: '#f6f6f6',
                       }}
-
-                      // fontFamily: 'ChosunBg',
                     >
                       {cardText[idx]}
                     </Card.Text>

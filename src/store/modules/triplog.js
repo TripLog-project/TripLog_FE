@@ -4,6 +4,7 @@ const ADD_PLAN_ITEM = 'triplog/ADD_PLAN_ITEM';
 const SET_DATE_IDX = 'triplog/SET_DATE_IDX';
 const DELETE_PLAN_ITEM = 'triplog/DELETE_PLAN_ITEM';
 const SET_AREA_CODE = 'triplog/SET_AREA_CODE';
+const SET_REGION = 'triplog/SET_REGION';
 
 export function addPlanDate(planDate) {
   return {
@@ -40,6 +41,13 @@ export function setAreaCode(areaCode) {
   };
 }
 
+export function setRegion(region) {
+  return {
+    type: SET_REGION,
+    payload: region,
+  };
+}
+
 // 초기 상태 설정
 const initState = {
   planDate: {
@@ -52,6 +60,7 @@ const initState = {
   planDateIdx: 0,
   list: [],
   areaCode: 0,
+  region: 0,
 };
 
 // 리듀서
@@ -73,6 +82,12 @@ export default function triplog(state = initState, action) {
         },
         planItems: [],
         planDateIdx: 0,
+      };
+    case SET_REGION:
+      return {
+        ...state,
+        areaCode: action.payload,
+        region: action.payload,
       };
     case ADD_PLAN_ITEM:
       // state 값에 바로 배열 처리를 하면 mutation 에러 발생

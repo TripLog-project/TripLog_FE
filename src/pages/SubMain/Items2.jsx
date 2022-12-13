@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import CardItemLink from '../../components/CardItemLink';
 
 import data from '../../data';
+import { useSelector } from 'react-redux';
 // detail 페이지의 submenu 부분
 export default function Items2({
   text,
@@ -22,6 +23,7 @@ export default function Items2({
 
   const [datas, setData] = useState(data);
   const [tourData, setTourData] = useState([]);
+  const region = useSelector((state) => state.triplog.region);
 
   useEffect(() => {
     axios
@@ -66,7 +68,7 @@ export default function Items2({
                   src={datas[h][3][i].firstimage}
                   title={datas[h][3][i].title}
                   onClick={() => {
-                    navigate(`/detail/${tourData.contentid}`);
+                    navigate(`/detail/${region}/${tourData.contentid}`);
                   }}
                 />
               );
