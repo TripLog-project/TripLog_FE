@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Router } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Main from './pages/Main/Main';
 import SubMain from './pages/SubMain/SubMain';
 import Plan from './pages/Plan/Plan';

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
@@ -13,9 +13,14 @@ import {
   Modal,
 } from 'react-bootstrap';
 import { FaArrowAltCircleUp, FaTrash } from 'react-icons/fa';
+import { chargeUpdate } from '../../store/modules/budget';
 
 export default function Budget() {
+  const dispatch = useDispatch();
+
   const nickName = useSelector((state) => state.users.userNickName);
+
+  const updateCharge = useSelector((state) => state.budget.chargeUpdate)
 
   const textRef = useRef();
   const chargeRef = useRef();
@@ -23,8 +28,7 @@ export default function Budget() {
 
   const [chargeData, setChargeData] = useState();
 
-  const [update, setUpdate] = useState(false);
-  const [okay, setOkay] = useState(false);
+  const [load, setLoad] = useState(false);
   const [show, setShow] = useState(false);
   const [users, setUsers] = useState(1);
 
@@ -47,10 +51,11 @@ export default function Budget() {
       .post('http://localhost:4000/charge', { nickName })
       .then((res) => {
         setChargeData(res.data.chargeList);
-        setOkay(true);
+        setLoad(true);
       })
       .catch((err) => console.log(err));
-  }, [update]);
+  }, [nickName, updateCharge]);
+  console.log(chargeData)
 
   const resetBudget = () => {
     axios
@@ -58,9 +63,9 @@ export default function Budget() {
         nickName,
         chargeData,
       })
-      .then((결과) => {
+      .then(() => {
+        dispatch(chargeUpdate());
         setShow(false);
-        setUpdate(!update);
       })
       .catch((err) => console.log(err));
   };
@@ -75,11 +80,11 @@ export default function Budget() {
         nickName,
       })
       .then(() => {
+        dispatch(chargeUpdate());
         alert('여행 지출 내역 등록을 성공하였습니다🙌');
         dateRef.current.value = '';
         textRef.current.value = '';
         chargeRef.current.value = '';
-        setUpdate(!update);
       })
       .catch((err) => {
         alert('여행 지출 내역 등록을 실패하였습니다. 다시 시도해주세요.');
@@ -87,41 +92,7 @@ export default function Budget() {
       });
   };
 
-  if (show) {
-    return (
-      <Modal
-        show={show}
-        onHide={handleClose}
-        centered
-        backdrop="static"
-        keyboard={false}
-        aria-labelledby="contained-modal-title-vcenter"
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>영수증 초기화 버튼입니다!</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>초기화하시면 다시는 영수증 데이터를 불러올 수 없어요!!</p>
-          <p>
-            정말{' '}
-            <span className="fw-bold" style={{ color: '#198754' }}>
-              초기화
-            </span>{' '}
-            하시겠습니까?
-          </p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="outline-success" onClick={resetBudget}>
-            초기화
-          </Button>
-          <Button variant="success" onClick={handleClose}>
-            닫기
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  }
-  if (okay) {
+  if (load) {
     return (
       <>
         <Nav />
@@ -226,8 +197,8 @@ export default function Budget() {
                                 a,
                               })
                               .then(() => {
+                                dispatch(chargeUpdate());
                                 alert('지출 내역 삭제를 성공하였습니다🙌');
-                                setUpdate(!update);
                               })
                               .catch((err) => console.log(err));
                           }}
@@ -284,6 +255,37 @@ export default function Budget() {
           </Row>
         </Container>
         <Footer />
+
+        <Modal
+            show={show}
+            onHide={handleClose}
+            centered
+            backdrop="static"
+            keyboard={false}
+            aria-labelledby="contained-modal-title-vcenter"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title>영수증 초기화 버튼입니다!</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>초기화하시면 다시는 영수증 데이터를 불러올 수 없어요!!</p>
+              <p>
+                정말
+                <span className="fw-bold" style={{ color: '#198754' }}>
+                  초기화
+                </span>
+                하시겠습니까?
+              </p>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="outline-success" onClick={resetBudget}>
+                초기화
+              </Button>
+              <Button variant="success" onClick={handleClose}>
+                닫기
+              </Button>
+            </Modal.Footer>
+          </Modal>
       </>
     );
   }

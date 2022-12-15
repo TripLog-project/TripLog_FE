@@ -140,7 +140,7 @@ export default function Detail() {
     window.scrollTo(0, document.documentElement.scrollHeight);
   };
 
-  if (load === true) {
+  if (load) {
     return (
       <>
         <Nav />
