@@ -101,13 +101,6 @@ export default function KakaoMap(props) {
   );
 }
 
-const FlexDiv = styled.div`
-  display: flex;
-`;
 const KakaoDiv = styled.div`
   height: 20rem;
-`;
-const InputText = styled.input`
-  width: 200px;
-  height: 50px;
 `;

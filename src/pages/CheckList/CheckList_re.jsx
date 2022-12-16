@@ -9,39 +9,30 @@ import {
 } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 export default function CheckListRe() {
-  const dispatch = useDispatch();
   const nickName = useSelector((state) => state.users.userNickName);
-  const check = useSelector((state) => state.check);
 
-  const inputRef = useRef();
   const [checked, setChecked] = useState([]);
   const [checklist, setChecklist] = useState([]);
   const [okay, setOkay] = useState(false);
   const [update, setUpdate] = useState(false);
   const [text, setText] = useState('');
 
-  const callApi = async () => {
-    axios
-      .post('http://13.125.234.1:4000/checklist', { nickName })
-
-      .then((res) => {
-        console.log(res.data);
-        setChecklist(res.data);
-        setChecked(res.data.checked);
-        setOkay(true);
-      })
-      .catch((err) => console.log(err));
-  };
-
   useEffect(() => {
-    callApi();
-  }, [update]);
+    axios
+    .post('http://localhost:4000/checklist', { nickName })
+    .then((res) => {
+      setChecklist(res.data);
+      setChecked(res.data.checked);
+      setOkay(true);
+    })
+    .catch(() => new Error('통신이상'));
+  }, [nickName, update])
 
   const handleToggle = (b) => () => {
     const currentIndex = checked.indexOf(b);
@@ -57,7 +48,6 @@ export default function CheckListRe() {
   };
 
   /* 추가 인풋 */
-  let input = '';
   const changeHandler = (e) => {
     setText(e.target.value);
   };
@@ -99,7 +89,7 @@ export default function CheckListRe() {
                                     onClick={() => {
                                       axios
                                         .delete(
-                                          'http://13.125.234.1:4000/checklist/deleteItem',
+                                          'http://localhost:4000/checklist/deleteItem',
                                           {
                                             data: {
                                               nickName: nickName,
@@ -110,12 +100,11 @@ export default function CheckListRe() {
                                             },
                                           }
                                         )
-                                        .then((res) => {
-                                          console.log(res.data);
+                                        .then(() => {
                                           setUpdate(!update);
                                         })
                                         .catch(() => {
-                                          console.log('실패');
+                                          new Error('통신에러')
                                         });
                                     }}
                                   />
@@ -135,20 +124,19 @@ export default function CheckListRe() {
                               onClick={() => {
                                 axios
                                   .post(
-                                    'http://13.125.234.1:4000/checklist/addItem',
+                                    'http://localhost:4000/checklist/addItem',
                                     {
                                       nickName: nickName,
                                       title: checklist.items[i].title,
                                       item: text,
                                     }
                                   )
-                                  .then((res) => {
-                                    console.log(res.data);
+                                  .then(() => {
                                     setText('');
                                     setUpdate(!update);
                                   })
                                   .catch(() => {
-                                    console.log('실패');
+                                    new Error('통신에러')
                                   });
                               }}
                             >
@@ -167,15 +155,14 @@ export default function CheckListRe() {
                     variant="success"
                     onClick={() => {
                       axios
-                        .post('http://13.125.234.1:4000/checklist/checked', {
+                        .post('http://localhost:4000/checklist/checked', {
                           nickName: nickName,
                           checked: checked,
                         })
-                        .then((res) => {
-                          console.log(res.data);
+                        .then(() => {
                           setUpdate(!update);
                         })
-                        .catch(() => console.log('실패'));
+                        .catch(() => new Error('통신에러'));
                     }}
                   >
                     저장

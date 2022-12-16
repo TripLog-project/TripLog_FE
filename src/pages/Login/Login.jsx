@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
 import { Container, Card, Badge } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import Forminput from '../../components/Forminput';
@@ -21,50 +19,18 @@ const KAKAO_CLIENT_ID = 'f25833457b45f3935443a269e01a48b1';
 const KAKAO_REDIRECT_URI = 'http://localhost:3000/oauth/callback/kakao';
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
 
-export default function Login({
-  text,
-  clickEvent,
-  textColor,
-  backgroundColor,
-  hoverColor,
-}) {
-  const [nickname, setNickname] = useState('');
+export default function Login() {
   const [useremail, setUseremail] = useState('');
   const [userpw, setUserpw] = useState('');
-  const [errorMsg, setErrMsg] = useState(ERROR_MSG);
-  const [success, setSuccess] = useState([]);
+  const [errorMsg] = useState(ERROR_MSG);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // 로그인 검증 파트
-  const checkUser = () => {
-    if (useremail === '' || userpw === '') {
-      alert('아이디와 비밀번호를 입력해주세요');
-      navigate('/login');
-    }
-    axios
-      .post('http://localhost:4000/users/register', {
-        type: 'local',
-        identifier: useremail,
-        password: userpw,
-      })
-      .then((response) => {
-        // true면 로그인처리, 아니면 경고창 보여주거나 로그인페이지보여주기
-        console.log('로그인 성공');
-        console.log('user 토큰', response.data.jwt);
-        localStorage.setItem('token', response.data.jwt);
-        navigate('/');
-      })
-      .catch((error) => {
-        console.log('로그인 실패', error.response);
-      });
-  };
-
   const [UserEmailValid, setUserEmailValid] = useState(false);
   const [UserPwValid, setUserPwValid] = useState(false);
-  const [fixEmailValue, setFixEmailValue] = useState('thals0@gmail.com');
-  const [fixPwlValue, setFixPwValue] = useState('11111111aa');
+  const [fixEmailValue] = useState('thals0@gmail.com');
+  const [fixPwlValue] = useState('11111111aa');
 
   const handleEmail = (e) => {
     setUseremail(e.target.value);
@@ -87,56 +53,12 @@ export default function Login({
     }
   };
 
-  const [loginCondition, setLoginCondition] = useState({
-    condition: false,
-    msg: '회원 정보를 정확하게 입력하세요!',
-  });
-  const [openDialog, setOpenDialog] = useState(false);
-
   async function loginUser() {
-    setOpenDialog(false);
-
-    async function normalLogin() {
-      const loginInfo = {
-        email: useremail,
-        password: userpw,
-      };
-      console.log(loginInfo);
-
-      if (useremail !== '' && userpw !== '') {
-        const response = await fetch('http://localhost:4000/user/login ', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(loginInfo),
-        });
-
-        if (response.status === 200) {
-          const result = await response.json();
-          console.log(result);
-          if (result.result) {
-            dispatch(login(result));
-            navigate('/');
-          } else {
-            alert('해당 정보를 찾을 수 없습니다');
-            navigate('/login');
-          }
-        } else {
-          throw new Error('로그인 실패');
-        }
-      } else {
-      }
-    }
-
-    // normalLogin();
-
     async function porfolioLogin() {
       const loginInfo = {
         email: fixEmailValue,
         password: fixPwlValue,
       };
-      console.log(loginInfo);
 
       const response = await fetch('http://localhost:4000/user/login ', {
         method: 'POST',
@@ -148,7 +70,6 @@ export default function Login({
 
       if (response.status === 200) {
         const result = await response.json();
-        console.log(result);
         if (result.result) {
           dispatch(login(result));
           navigate('/');
@@ -160,7 +81,6 @@ export default function Login({
         throw new Error('로그인 실패');
       }
     }
-
     porfolioLogin();
   }
   return (
@@ -182,7 +102,7 @@ export default function Login({
             </a>
           </div>
           <Forminput
-            id={'useremail'}
+            id="useremail"
             label="아이디"
             // normal로그인히기
             // value={useremail}
@@ -200,7 +120,7 @@ export default function Login({
             }
           />
           <Forminput
-            id={'userpw'}
+            id="userpw"
             label="비밀번호"
             // normal로그인하기
             // value={userpw}
@@ -226,18 +146,14 @@ export default function Login({
             hoverColor="#fff"
             hoverBackgroundColor="#555"
           ></Btn>
-          <a
+          <Btn
             href={KAKAO_AUTH_URL}
-            style={{ textDecoration: 'none', width: '350px' }}
-          >
-            <Btn
-              text="카카오로그인"
-              textColor="#333"
-              backgroundColor="#ffd503"
-              hoverColor="#333"
-              hoverBackgroundColor="#d0ad00"
-            ></Btn>
-          </a>
+            text="카카오로그인"
+            textColor="#333"
+            backgroundColor="#ffd503"
+            hoverColor="#333"
+            hoverBackgroundColor="#d0ad00"
+          ></Btn>
         </Card>
       </Container>
       <Footer />

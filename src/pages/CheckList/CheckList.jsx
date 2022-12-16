@@ -7,7 +7,6 @@ import {
   Form,
   Col,
 } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import axios from 'axios';
@@ -26,21 +25,16 @@ export default function CheckList() {
   const [okay, setOkay] = useState(false);
   const [text, setText] = useState('');
 
-  const callApi = async () => {
-    axios
-      .post('http://13.125.234.1:4000/checklist', { nickName })
-
-      .then((res) => {
-        setChecklist(res.data);
-        setChecked(res.data.checked);
-        setOkay(true);
-      })
-      .catch((err) => console.log(err));
-  };
-
   useEffect(() => {
-    callApi();
-  }, [update]);
+    axios
+    .post('http://localhost:4000/checklist', { nickName })
+    .then((res) => {
+      setChecklist(res.data);
+      setChecked(res.data.checked);
+      setOkay(true);
+    })
+    .catch(() => new Error('통신이상'));
+  }, [nickName, update])
 
   const handleToggle = (b) => () => {
     const currentIndex = checked.indexOf(b);
@@ -63,14 +57,14 @@ export default function CheckList() {
   // 체크박스 상태 저장
   const saveCheckList = () => {
     axios
-      .post('http://13.125.234.1:4000/checklist/checked', {
+      .post('http://localhost:4000/checklist/checked', {
         nickName: nickName,
         checked: checked,
       })
       .then(() => {
         alert('체크박스 상태를 저장했습니다 ✅');
       })
-      .catch((err) => console.log(err));
+      .catch(() => new Error('통신이상'));
   };
 
   if (okay) {
@@ -119,7 +113,7 @@ export default function CheckList() {
                                 onClick={() => {
                                   axios
                                     .delete(
-                                      'http://13.125.234.1:4000/checklist/deleteItem',
+                                      'http://localhost:4000/checklist/deleteItem',
                                       {
                                         data: {
                                           nickName: nickName,
@@ -131,7 +125,7 @@ export default function CheckList() {
                                     .then(() => {
                                       setUpdate(!update);
                                     })
-                                    .catch((err) => console.log(err));
+                                    .catch(() => new Error('통신이상'));
                                 }}
                               />
                             </Form.Check>
@@ -149,7 +143,7 @@ export default function CheckList() {
                             onClick={() => {
                               axios
                                 .post(
-                                  'http://13.125.234.1:4000/checklist/addItem',
+                                  'http://localhost:4000/checklist/addItem',
                                   {
                                     nickName: nickName,
                                     title: checklist.items[i].title,
@@ -160,7 +154,7 @@ export default function CheckList() {
                                   setText('');
                                   setUpdate(!update);
                                 })
-                                .catch((err) => console.log(err));
+                                .catch((err) => new Error('통신이상'));
                             }}
                           >
                             추가
@@ -173,8 +167,8 @@ export default function CheckList() {
               })}
               <Row className="mt-3 mx-1">
                 <Col>
-                  <h6 calssName="text-center ">
-                    체크리스트 저장{' '}
+                  <h6 className="text-start">
+                    체크리스트 저장
                     <FaArrowRight style={{ color: '#198754' }} />
                   </h6>
                 </Col>

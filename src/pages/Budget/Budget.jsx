@@ -53,9 +53,8 @@ export default function Budget() {
         setChargeData(res.data.chargeList);
         setLoad(true);
       })
-      .catch((err) => console.log(err));
+      .catch(() => new Error('통신에러'));
   }, [nickName, updateCharge]);
-  console.log(chargeData)
 
   const resetBudget = () => {
     axios
@@ -67,7 +66,7 @@ export default function Budget() {
         dispatch(chargeUpdate());
         setShow(false);
       })
-      .catch((err) => console.log(err));
+      .catch(() => new Error('통신에러'));
   };
 
   const addBudget = () => {
@@ -86,9 +85,8 @@ export default function Budget() {
         textRef.current.value = '';
         chargeRef.current.value = '';
       })
-      .catch((err) => {
+      .catch(() => {
         alert('여행 지출 내역 등록을 실패하였습니다. 다시 시도해주세요.');
-        console.log(err);
       });
   };
 
@@ -200,7 +198,7 @@ export default function Budget() {
                                 dispatch(chargeUpdate());
                                 alert('지출 내역 삭제를 성공하였습니다🙌');
                               })
-                              .catch((err) => console.log(err));
+                              .catch(() => new Error('통신에러'));
                           }}
                         />
                       </Col>
@@ -214,7 +212,7 @@ export default function Budget() {
                   ITEM COUNT :
                 </Col>
                 <Col className="text-end">
-                  {chargeData === [] ? 0 : chargeData.length} 개
+                  {chargeData === [] ? 0 : chargeData.length}개
                 </Col>
               </Row>
 
@@ -227,11 +225,7 @@ export default function Budget() {
                   />
                 </Col>
                 <Col sm md lg="auto" className="text-end">
-                  1인당{' '}
-                  {parseInt(totalCharge / users).toLocaleString('ko-KR', {
-                    currency: 'KRW',
-                  })}
-                  원
+                  1인당 {parseInt(totalCharge / users).toLocaleString('ko-KR', {currency: 'KRW'})}원
                 </Col>
               </Row>
 

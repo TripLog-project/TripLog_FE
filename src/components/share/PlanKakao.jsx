@@ -1,7 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { Badge } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function PlanKakao() {
   useEffect(() => {

@@ -1,11 +1,7 @@
-import { Card, Stack, Badge } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Stack } from 'react-bootstrap';
 import styled from 'styled-components';
-
-import { useEffect, useState } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
-import { addPlanDate, deletePlanItem } from '../../store/modules/triplog';
+import { deletePlanItem } from '../../store/modules/triplog';
 
 const PlanItem = ({ onClick, productItems, idx }) => {
   let state = useSelector((state) => state.triplog);
@@ -14,8 +10,6 @@ const PlanItem = ({ onClick, productItems, idx }) => {
   const onErrorImg = (e) => {
     e.target.src = process.env.PUBLIC_URL + '/images/submain/경주.png';
   };
-
-  const [planItems, setPlanItems] = useState(state.planItems);
 
   if (state.planItems.length > 0) {
     return state.planItems[idx].map(
@@ -34,6 +28,7 @@ const PlanItem = ({ onClick, productItems, idx }) => {
             src={state.planItems[idx][i].Image}
             style={{ width: '2.5rem', height: '2.5rem', borderRadius: '50%' }}
             onError={onErrorImg}
+            alt=''
           ></img>
 
           <Stack className="col-9 d-flex flex-column my-auto">

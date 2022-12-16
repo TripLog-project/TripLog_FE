@@ -9,7 +9,6 @@ export default function KakaoRedirectHandler() {
 
   useEffect(() => {
     const CODE = new URL(window.location.href).searchParams.get('code');
-    console.log(CODE);
 
     // 카카오 디벨롭퍼에서 주는 정보
     const GRANT_TYPE = 'authorization_code';
@@ -31,7 +30,6 @@ export default function KakaoRedirectHandler() {
       // 토큰 받는 코드
       if (tokenResponse.status === 200) {
         const token = await tokenResponse.json();
-        console.log(token);
 
         const userResponese = await fetch(`https://kapi.kakao.com/v2/user/me`, {
           method: 'POST',
@@ -43,14 +41,12 @@ export default function KakaoRedirectHandler() {
 
         if (userResponese.status === 200) {
           const userKaKaoInfo = await userResponese.json();
-          console.log(userKaKaoInfo);
 
           const userLoginInfo = {
             email: userKaKaoInfo.kakao_account.email,
             nickName: userKaKaoInfo.kakao_account.profile.nickname,
             image: '',
           };
-          console.log(userLoginInfo);
 
           const registerResponse = await fetch(
             'http://localhost:4000/user/register',
@@ -69,7 +65,6 @@ export default function KakaoRedirectHandler() {
           );
 
           if (registerResponse.status === 200) {
-            console.log('it works');
             dispatch(login(userLoginInfo));
             navigate('/');
           } else {

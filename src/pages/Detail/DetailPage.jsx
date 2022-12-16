@@ -85,7 +85,7 @@ export default function Detail() {
       .then((res) => {
         setReview(res.data);
       })
-      .catch(() => console.log('리뷰 실패'));
+      .catch(() => new Error('리뷰 실패'));
   }, [contentid, updateReview]);
 
   /* 별점 평균평점 계산 */
@@ -136,7 +136,6 @@ export default function Detail() {
   const likeUser = likeClickUser.includes(nickName) === false ? '🤍' : '❤️';
 
   const scrollReview = () => {
-    console.log(document.documentElement.scrollHeight);
     window.scrollTo(0, document.documentElement.scrollHeight);
   };
 

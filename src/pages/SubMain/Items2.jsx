@@ -1,39 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { Container, Row, Col } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 import CardItemLink from '../../components/CardItemLink';
-
 import data from '../../data';
 import { useSelector } from 'react-redux';
 // detail 페이지의 submenu 부분
-export default function Items2({
-  text,
-  subText,
-  srcImg,
-  width,
-  height,
-  pickAreaName,
-}) {
+
+export default function Items2({ width, height, pickAreaName }) {
   const navigate = useNavigate();
   const params = useParams();
   const areaCode = params.areaCode;
 
-  const [datas, setData] = useState(data);
-  const [tourData, setTourData] = useState([]);
+  const [datas] = useState(data);
   const region = useSelector((state) => state.triplog.region);
-
-  useEffect(() => {
-    axios
-      .get(
-        `https://apis.data.go.kr/B551011/KorService/areaBasedList?serviceKey=rfaoGpiapHFqOcUT6bqfERRxy1WVxzOdOpEC3ChyAFPEfONdSMdRVNETTJKRhqTbPuZ2krpG2mQJMXDbyG74RA%3D%3D&numOfRows=498&pageNo=1&MobileOS=ETC&MobileApp=TripLog&_type=json&listYN=Y&arrange=B&contentTypeId=12&areaCode=${areaCode}`
-      )
-      .then((response) => {
-        setTourData(response.data.response.body.items.item);
-      });
-  }, []);
 
   let h = 0;
   for (let i = 0; i < datas.length; i++) {
@@ -43,6 +23,7 @@ export default function Items2({
       }
     }
   }
+  
   return (
     <Container className="p-3 mb-4 mt-5">
       <Row className="d-block justify-content-start">
@@ -59,16 +40,16 @@ export default function Items2({
       <Row>
         <TableContainer>
           {datas.length > 0 ? (
-            datas[h][3].map((tourData, i) => {
+            datas[h][3].map((a, i) => {
               return (
                 <CardItemLink
                   key={i}
                   width={width}
                   height={height}
-                  src={datas[h][3][i].firstimage}
-                  title={datas[h][3][i].title}
+                  src={a.firstimage}
+                  title={a.title}
                   onClick={() => {
-                    navigate(`/detail/${region}/${tourData.contentid}`);
+                    navigate(`/detail/${region}/${a.contentid}`);
                   }}
                 />
               );

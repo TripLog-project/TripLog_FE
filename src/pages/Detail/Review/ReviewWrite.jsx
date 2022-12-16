@@ -79,12 +79,12 @@ export default function ReviewWrite({ title, region }) {
               dispatch(reviewUpdate());
               
             })
-            .catch((err) => {
-              console.log(err);
+            .catch(() => {
+              new Error('통신에러');
               alert('댓글 등록을 실패하였습니다. 다시 시도해주세요.');
             });
         })
-        .catch((err) => console.log(err));
+        .catch(() => new Error('통신에러'));
     } else {
       axios
         .post('http://localhost:4000/review/write', [
@@ -105,8 +105,8 @@ export default function ReviewWrite({ title, region }) {
           alert('댓글 등록을 성공하였습니다. 🙌');
           dispatch(reviewUpdate());
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          new Error('통신에러')
           alert('댓글 등록을 실패하였습니다. 다시 시도해주세요.');
         });
     }

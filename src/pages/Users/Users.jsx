@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Container, Card, Badge } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import Forminput from '../../components/Forminput';
@@ -18,7 +17,7 @@ export default function Users() {
   const [nickname, setNickname] = useState('');
   const [useremail, setUseremail] = useState('');
   const [userpw, setUserpw] = useState('');
-  const [errorMsg, setErrMsg] = useState(ERROR_MSG);
+  const [errorMsg] = useState(ERROR_MSG);
   const navigate = useNavigate();
 
   const register = () => {
@@ -31,12 +30,11 @@ export default function Users() {
           email: useremail,
           password: userpw,
         })
-        .then((response) => {
-          console.log('회원 등록 성공');
+        .then(() => {
           navigate('/');
         })
-        .catch((error) => {
-          console.log('error', error.response);
+        .catch(() => {
+          new Error('통신에러')
         });
     } else {
       // 입력 값 중 하나라도 validation 을 통과하지 못하면 alert 창 출력

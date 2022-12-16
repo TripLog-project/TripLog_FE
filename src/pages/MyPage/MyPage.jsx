@@ -9,7 +9,6 @@ import {
   Card,
   Stack,
 } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 import Footer from '../../components/Footer';
 import PageNav from '../../components/Nav';
@@ -35,13 +34,10 @@ export default function MyPage() {
   //위 state를 success 하나로 바꾸기
   const [success, setSuccess] = useState(false);
   const [data, setData] = useState([]);
-  const [tourData, setTourData] = useState([]);
+
   // 이미지 저장
   const [userData, setUserData] = useState([]);
   const [imgUpload, setImgUpload] = useState(false);
-
-  // islogin
-  const users = useSelector((state) => state.users);
 
   // 데이터 받아오기
   useEffect(() => {
@@ -61,7 +57,7 @@ export default function MyPage() {
         setUserData(res.data);
       })
       .catch(() => {
-        console.log('실패');
+        new Error('통신에러')
       });
   }, [setUserData, nickName, updateUserImage]); //무한 랜더링 막기 위해서 userData가 아닌 setUserData로 수정
 
@@ -391,27 +387,6 @@ export default function MyPage() {
     );
   }
 }
-
-const Stars = styled.div`
-  padding-top: 5px;
-
-  & svg {
-    color: gray;
-    cursor: pointer;
-  }
-
-  :hover svg {
-    color: #fcc419;
-  }
-
-  & svg:hover ~ svg {
-    color: gray;
-  }
-
-  .yellowStar {
-    color: #fcc419;
-  }
-`;
 
 const Title = styled.p`
   font: 2rem/1 'Inter';

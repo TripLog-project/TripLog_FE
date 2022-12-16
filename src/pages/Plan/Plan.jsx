@@ -327,10 +327,6 @@ export default function Plan() {
 }
 
 // style-components
-const PlanCard = styled.div`
-  font-family: 'Inter';
-  flex-wrap: wrap;
-`;
 const Title = styled.p`
   font: 2rem/1 'Inter';
 `;

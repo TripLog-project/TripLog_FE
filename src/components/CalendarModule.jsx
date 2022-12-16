@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal, Card } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, Modal } from 'react-bootstrap';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
 
