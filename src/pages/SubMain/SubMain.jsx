@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
@@ -8,14 +7,13 @@ import CalendarMain from './CalendarMain';
 import Items from './Items';
 import Items2 from './Items2';
 import data from '../../data';
-
 import { useParams } from 'react-router-dom';
 
-export default function SubMain({ productItems, width, height, planDate }) {
+export default function SubMain({ planDate }) {
   const params = useParams();
   const areaCode = params.areaCode;
 
-  const [areaName, setAreaName] = useState(data);
+  const [areaName] = useState(data);
 
   let h = 0;
   for (let i = 0; i < areaName.length; i++) {
@@ -28,7 +26,6 @@ export default function SubMain({ productItems, width, height, planDate }) {
 
   let pickAreaName = areaName[h][0];
   let pickAreaImg = areaName[h][1];
-  const [productItem, setProductItem] = useState([]); //받아온데이터 담기
 
   return (
     <>

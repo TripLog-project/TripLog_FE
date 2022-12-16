@@ -100,7 +100,7 @@ export default function Main() {
           className="d-flex col-lg-8 col-sm-8 mx-auto text-center mt-5"
         >
           {regionIcon.map((a, idx) => (
-            <Col
+            <Col key={idx}
               onClick={() => {
                 dispatch(setAreaCode(regionAreacode[idx]));
                 dispatch(setRegion(regionCode[idx]));
