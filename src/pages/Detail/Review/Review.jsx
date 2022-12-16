@@ -285,7 +285,7 @@ export default function Review({ review, region }) {
                                         setEmendContent(res.data.content);
                                         setEmendId(res.data._id);
                                       })
-                                      .catch((err) => console.log(err));
+                                      .catch(() => new Error('통신에러'));
                                   }}
                                 >
                                   수정
@@ -317,7 +317,7 @@ export default function Review({ review, region }) {
                                         dispatch(reviewUpdate());
                                         alert('리뷰가 삭제되었습니다.');
                                       })
-                                      .catch((err) => console.log(err));
+                                      .catch(() => new Error('통신에러'));
                                   }}
                                 >
                                   삭제
