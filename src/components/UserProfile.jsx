@@ -1,6 +1,5 @@
 import { Row, Col, Image } from "react-bootstrap"
 
-
 export default function UserProfile () {
   return (
     <Row className="mt-3 px-2">

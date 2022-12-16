@@ -1,5 +1,4 @@
 import { Container, Card, Badge } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Forminput from './Forminput';
 import Btn from './Button';
 import { useState } from 'react';
@@ -9,16 +8,7 @@ const initialErrData = {
   userpw: '',
 };
 
-export default function UsersForm({
-  id,
-  label,
-  inputProps,
-  text,
-  clickEvent,
-  textColor,
-  backgroundColor,
-  hoverColor,
-}) {
+export default function UsersForm() {
   const [errData, setErrData] = useState(initialErrData);
 
   return (
