@@ -1,13 +1,13 @@
-/* global kakao */
 import { useEffect } from 'react';
-import { Row, Card } from 'react-bootstrap';
 
-export default function DetailMap({ props }) {
+export default function DetailMap({ detail }) {
+  const { kakao } = window;
+  
   /* 지도 */
   useEffect(() => {
     const container = document.getElementById('map');
     const options = {
-      center: new kakao.maps.LatLng(props.mapy, props.mapx),
+      center: new kakao.maps.LatLng(detail.mapy, detail.mapx),
       level: 7,
     };
 
@@ -17,20 +17,13 @@ export default function DetailMap({ props }) {
 
     new kakao.maps.Marker({
       map: map,
-      position: new kakao.maps.LatLng(props.mapy, props.mapx),
+      position: new kakao.maps.LatLng(detail.mapy, detail.mapx),
     });
-  }, [props.mapy]);
+  }, [kakao.maps.LatLng, kakao.maps.Map, kakao.maps.Marker, detail.mapx, detail.mapy]);
 
   return (
     <>
-      <Row className="mb-3 mt-lg-5 mt-md-5 mt-sm-3 mt-4">
-        <h5 className="fw-bold">위치 보기</h5>
-        <Card
-          id="map"
-          style={{ width: '67vw', height: '35vh' }}
-          className="mt-2 mb-3 m-auto ps-5"
-        ></Card>
-      </Row>
+      <div style={{ width: '100%', height: '100%' }} id="map"></div>
     </>
   );
 }

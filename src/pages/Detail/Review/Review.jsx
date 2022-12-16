@@ -20,7 +20,7 @@ import { reviewUpdate } from '../../../store/modules/review';
 // 리뷰가 업데이트 되면 해당 여부를 redux 에 알리기 위한
 // dispatch 훅고 리덕스에서 선언한 액션 생성 함수 임포트
 
-export default function Review({ props, region }) {
+export default function Review({ review, region }) {
   const dispatch = useDispatch();
   const contentRef = useRef();
 
@@ -35,8 +35,8 @@ export default function Review({ props, region }) {
   const handleEmendClose = () => setEmendShow(false);
   const handleImgShow = () => setImgShow(true);
   const handleImgClose = () => setImgShow(false) && setImgSrc('');
+
   const nickName = useSelector((state) => state.users.userNickName);
-  const userImage = useSelector((state) => state.users.userImage);
 
   /* pagingnation */
   // 첫 번째 페이지
@@ -54,7 +54,6 @@ export default function Review({ props, region }) {
   const onErrorReviewImg = (e) => {
     e.target.src = process.env.PUBLIC_URL + '/images/defaultImage.png';
   };
-
   const changeEmendContent = (event) => {
     setEmendContent(event.target.value);
     setEmendContentText(contentRef.current.value.length);
@@ -64,11 +63,13 @@ export default function Review({ props, region }) {
       .post(`http://localhost:4000/review/emend`, [
         { emendId, emendContent, nickName },
       ])
-      .then((res) => {
+      .then(() => {
         setEmendShow(false);
+        dispatch(reviewUpdate());
+        alert('리뷰가 수정되었습니다.')
       })
       .catch(() => {
-        console.log('실패');
+        new Error('통신에러');
       });
   };
   return (
@@ -96,13 +97,12 @@ export default function Review({ props, region }) {
               required
               className="mb-3"
               ref={contentRef}
-              setCon
               onChange={changeEmendContent}
             />
           </Modal.Body>
           <Modal.Footer>
             <div className="text-mute">
-              글자수 제한: {emendContentText}/100자
+              글자수 제한: {emendContentText} / 100자
             </div>
             <Button variant="outline-success" onClick={handleEmendClose}>
               닫기
@@ -114,8 +114,8 @@ export default function Review({ props, region }) {
         </Modal>
 
         <Row xs={1} md={1} lg={2} sm={1} xxs={2} className="mb-4">
-          {props.length > 0 ? (
-            props
+          {review.length > 0 ? (
+            review
               .slice(pagePost * (page - 1), pagePost * (page - 1) + pagePost)
               .map(function (a, i) {
                 return (
@@ -158,8 +158,7 @@ export default function Review({ props, region }) {
                               <Image
                                 src={`http://localhost:4000/uploads/${a.userImage}`}
                                 roundedCircle
-                                alt=" "
-                                onError={onErrorUserImg}
+                                alt=""
                                 style={{
                                   width: '70px',
                                   border: '2px solid lightgray',
@@ -168,7 +167,17 @@ export default function Review({ props, region }) {
                                 }}
                               />
                             ) : (
-                              <img onError={onErrorUserImg} alt=" " />
+                              <Image
+                                onError={onErrorUserImg}
+                                src=""
+                                alt=""
+                                style={{
+                                  width: '70px',
+                                  border: '2px solid lightgray',
+                                  boxShadow:
+                                    'rgba(0, 0, 0, 0.4) 0px 20px 30px -20px',
+                                }}
+                              />
                             )}
                           </Col>
                           <Col>
@@ -241,16 +250,22 @@ export default function Review({ props, region }) {
                           {a.content}
                         </Card.Text>
                         <Col>
-                          <Image
-                            src={`http://localhost:4000/uploads/${a.image}`}
-                            onError={onErrorReviewImg}
-                            onClick={(e) => {
-                              setImgSrc(e.target.src);
-                              setImgShow(true);
-                            }}
-                            style={{ width: '150px', height: '150px' }}
-                            className="mt-3 border mx-2"
-                          />
+                          {a.image === '' ? (
+                            <div
+                              style={{ width: '150px', height: '150px' }}
+                              className="mt-3 mx-2"
+                            ></div>
+                          ) : (
+                            <Image
+                              src={`http://localhost:4000/uploads/${a.image}`}
+                              onClick={(e) => {
+                                setImgSrc(e.target.src);
+                                handleImgShow();
+                              }}
+                              style={{ width: '150px', height: '150px' }}
+                              className="mt-3 border mx-2"
+                            />
+                          )}
                         </Col>
 
                         <Row className="d-flex justify-content-end">
@@ -261,7 +276,7 @@ export default function Review({ props, region }) {
                                   variant="success"
                                   className="reviewEmendBtn"
                                   onClick={() => {
-                                    setEmendShow(true);
+                                    handleEmendShow();
                                     axios
                                       .get(
                                         `http://localhost:4000/review/emend/${a._id}`
@@ -306,7 +321,7 @@ export default function Review({ props, region }) {
                                   }}
                                 >
                                   삭제
-                                </Button>{' '}
+                                </Button>
                               </>
                             ) : (
                               <>
@@ -322,7 +337,7 @@ export default function Review({ props, region }) {
                 );
               })
           ) : (
-            <Col className="text-center col-lg-12 col-12">
+            <Col className="text-center col-lg-12 col-12 mt-3">
               등록된 리뷰가 없습니다.
             </Col>
           )}
@@ -340,7 +355,7 @@ export default function Review({ props, region }) {
             // 페이지당 항목 수
             itemsCountPerPage={6}
             // 페이지 총 아이템수
-            totalItemsCount={props.length}
+            totalItemsCount={review.length}
             // 페이지 범위
             pageRangeDisplayed={5}
             // 이전 페이지 탐색 버튼의 텍스트

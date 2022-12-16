@@ -1,4 +1,3 @@
-/* global kakao */
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import axios from 'axios';
@@ -28,7 +27,7 @@ export default function Detail() {
   const nickName = useSelector((state) => state.users.userNickName);
 
   const [loading, setLoading] = useState(true);
-  const [overview, setOverview] = useState([]);
+  const [overview, setOverview] = useState('');
   const [homepage, setHomepage] = useState([]);
   const [review, setReview] = useState([]);
 
@@ -37,17 +36,20 @@ export default function Detail() {
 
   const [detail, setDetail] = useState([]);
 
+  const [load, setLoad] = useState(false)
+
   // 이미지 로딩 실패시
   const onErrorImg = (e) => {
     e.target.src = process.env.PUBLIC_URL + '/images/defaultImage.png';
   };
 
-  // 전체 데이터를 가져오는 useEffect
+  // 전체 데이터
   useEffect(() => {
     axios
       .get(`http://localhost:4000/detail/${region}/${contentid}`)
       .then((response) => {
         setDetail(response.data);
+        setLoad(true)
       });
   }, [contentid, region]);
 
@@ -65,7 +67,7 @@ export default function Detail() {
       .catch(() => new Error('실패'));
   }, [contentid]);
 
-  /* 좋아요 데이터 가져오기 */
+  /* 좋아요 데이터 */
   useEffect(() => {
     axios
       .get(`http://localhost:4000/detail/${contentid}`)
@@ -76,7 +78,7 @@ export default function Detail() {
       .catch(() => new Error('실패'));
   }, [contentid, updateLike]);
 
-  /*  리뷰 정보 가져오는 useEffect*/
+  /* 리뷰 정보 */
   useEffect(() => {
     axios
       .get(`http://localhost:4000/review/${contentid}`)
@@ -138,143 +140,137 @@ export default function Detail() {
     window.scrollTo(0, document.documentElement.scrollHeight);
   };
 
-  return (
-    <>
-      <Nav />
-      <Container className="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-        <Row xs={1} md={1} lg={2} xxs={1} className="">
-          <Col>
-            <Card className="mt-3" style={{ height: '60vh' }}>
-              <Card.Img
-                variant="top"
-                src={detail.firstimage1}
-                onError={onErrorImg}
-                style={{ height: '45vh', objectFit: 'cover' }}
-                className="fluid border"
-              />
-              <Card.Body className="d-flex justify-content-center align-items-center">
-                <div
-                  className="text-center flex-fill flex-row"
-                  style={{ cursor: 'pointer' }}
-                >
-                  <h5 sytle={{ cursor: 'pointer' }} onClick={likeClick}>
-                    {likeUser}
-                  </h5>
-                  <div>좋아요</div>
-                </div>
-                <div
-                  className="text-center flex-fill"
-                  style={{ cursor: 'pointer' }}
-                  onClick={scrollReview}
-                >
-                  <h5>⭐</h5>
-                  <div>리뷰쓰기</div>
-                </div>
-                <div
-                  className="text-center flex-fill"
-                  style={{ cursor: 'pointer' }}
-                >
-                  <Kakao tourData={detail} />
-                  <div className="pt-2">카카오 공유</div>
-                </div>
-                <div
-                  className="text-center flex-fill "
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => {
-                    alert('url이 복사되었습니다.');
-                  }}
-                >
-                  <Url />
-                  <div style={{ fontSize: '1rem' }}>URL공유</div>
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
+  if (load) {
+    return (
+      <>
+        <Nav />
+        <Container className="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+          <Row xs={1} md={1} lg={2} xxs={1} className="">
+            <Col>
+              <Card className="mt-3" style={{ height: '60vh' }}>
+                <Card.Img
+                  variant="top"
+                  src={detail.firstimage1}
+                  onError={onErrorImg}
+                  style={{ height: '45vh', objectFit: 'cover' }}
+                  className="fluid border"
+                />
+                <Card.Body className="d-flex justify-content-center align-items-center">
+                  <div
+                    className="text-center flex-fill flex-row"
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <h5 sytle={{ cursor: 'pointer' }} onClick={likeClick}>
+                      {likeUser}
+                    </h5>
+                    <div>좋아요</div>
+                  </div>
+                  <div
+                    className="text-center flex-fill"
+                    style={{ cursor: 'pointer' }}
+                    onClick={scrollReview}
+                  >
+                    <h5>⭐</h5>
+                    <div>리뷰쓰기</div>
+                  </div>
+                  <div
+                    className="text-center flex-fill"
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <Kakao tourData={detail} />
+                    <div className="pt-2">카카오 공유</div>
+                  </div>
+                  <div
+                    className="text-center flex-fill "
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      alert('url이 복사되었습니다.');
+                    }}
+                  >
+                    <Url />
+                    <div style={{ fontSize: '1rem' }}>URL공유</div>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
 
-          <Col>
-            <Card
-              className="mt-3 px-3"
-              style={{ overflowY: 'scroll', height: '60vh' }}
-            >
-              <Card.Body className="m-2 " style={{ height: '40vh' }}>
-                <div className=" mb-2 text-muted text-end">
-                  조회수{' '}
-                  {detail.view === undefined ? (
-                    <span>1</span>
-                  ) : (
-                    <span>{detail.view + 1}</span>
-                  )}
-                </div>
-                <Card.Title className="mb-3 fw-bold">{detail.title}</Card.Title>
-                <Card.Subtitle className="mb-2 text-muted">
-                  📍 {detail.addr1}
-                </Card.Subtitle>
-                <Card.Text className="mb-4">
-                  <Progress starAvg={starAvg} /> <span>❤</span>{' '}
-                  {detail.like === undefined ? (
-                    <span>0</span>
-                  ) : (
-                    <span>{like}</span>
-                  )}
-                </Card.Text>
-                <Card.Text>
-                  <Row className="mt-1">
-                    <span className="fw-bold">전화</span>
-                    <div>
-                      {detail.tel === !' '
-                        ? detail.tel
-                        : '전화번호 정보가 없습니다.'}
-                    </div>
-                  </Row>
-                  <Row>
-                    <span className="fw-bold">홈페이지</span>
-
-                    {loading ? (
-                      <div className=" d-flex justify-content-center">
-                        <BeatLoader color="#198754" />
+            <Col>
+              <Card
+                className="mt-3 px-3"
+                style={{ overflowY: 'scroll', height: '60vh' }}
+              >
+                <Card.Body className="m-2 " style={{ height: '40vh' }}>
+                  <div className=" mb-2 text-muted text-end">
+                    조회수 {detail.view + 1}
+                  </div>
+                  <Card.Title className="mb-3 fw-bold">
+                    {detail.title}
+                  </Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">
+                    📍 {detail.addr1}
+                  </Card.Subtitle>
+                  <Card.Text className="mb-4">
+                    <Progress starAvg={starAvg} /> <span>❤ {like}</span>
+                  </Card.Text>
+                  <div>
+                    <Row className="mt-1">
+                      <span className="fw-bold">전화</span>
+                      <div>
+                        {detail.tel !== ''
+                          ? detail.tel
+                          : '전화번호 정보가 없습니다.'}
                       </div>
-                    ) : homepage === !'' ? (
-                      <a dangerouslySetInnerHTML={{ __html: homepage }}></a>
+                    </Row>
+                    <Row>
+                      <span className="fw-bold">홈페이지</span>
+                      {loading ? (
+                        <div className=" d-flex justify-content-center">
+                          <BeatLoader color="#198754" />
+                        </div>
+                      ) : homepage !== '' ? (
+                        <a
+                          dangerouslySetInnerHTML={{ __html: homepage }}
+                          href="!#"
+                        ></a>
+                      ) : (
+                        <div>홈페이지 정보가 없습니다.</div>
+                      )}
+                    </Row>
+                  </div>
+                  <div>
+                    <span className="fw-bold">장소설명</span>
+                    {loading ? (
+                      <BeatLoader
+                        color="#198754"
+                        className="text-center mt-5"
+                      />
                     ) : (
-                      <div>홈페이지 정보가 없습니다.</div>
+                      <div dangerouslySetInnerHTML={{ __html: overview }}></div>
                     )}
-                  </Row>
-                </Card.Text>
-                <Card.Text>
-                  <span className="fw-bold">장소설명</span>
-                  {loading ? (
-                    <BeatLoader color="#198754" className="text-center mt-5" />
-                  ) : (
-                    <div dangerouslySetInnerHTML={{ __html: overview }}></div>
-                  )}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
 
-        {/* 지도 */}
-        <DetailMap props={detail} />
+          {/* 지도 */}
+          <h5 className="fw-bold mt-3">위치 보기</h5>
+          <Card className="mt-3" style={{ height: '40vh' }}>
+            <DetailMap detail={detail} />
+          </Card>
 
-        {/* 리뷰 */}
-        <Row className="mt-lg-5 mt-md-5 mt-sm-5 mt-4 ">
-          <Col>
-            <span className="fw-bold fs-5 ">
-              리뷰
-              <span className="text-success mx-1">{review.length}</span>
-            </span>
-          </Col>
+          {/* 리뷰 */}
+          <div className="fw-bold fs-5 mt-3">
+            <span>리뷰</span>
+            <span className="text-success mx-1">{review.length}</span>
+          </div>
           <Col className="text-end col-12">
-            <ReviewBox
-              setReview={setReview}
-              title={detail.title}
-              region={region}
-            />
+            <ReviewBox review={review} title={detail.title} region={region} />
           </Col>
-        </Row>
-        <Review props={review} />
-      </Container>
-      <Footer />
-    </>
-  );
+          <Review review={review} region={region}/>
+        </Container>
+        <Footer />
+      </>
+    );
+  }
 }
