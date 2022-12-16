@@ -5,7 +5,6 @@ const ADD_PLAN_DATE = 'triplog/ADD_PLAN_DATE';
 const ADD_PLAN_ITEM = 'triplog/ADD_PLAN_ITEM';
 const SET_DATE_IDX = 'triplog/SET_DATE_IDX';
 
-
 // 로그인, 로그아웃 액션 생성 함수
 export function login(loginInfo) {
   return {

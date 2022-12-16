@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faUser,
@@ -8,7 +6,7 @@ import {
   faCircleUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { logout } from '../store/modules/users';
 
 export default function NavHeader() {
@@ -27,7 +25,7 @@ export default function NavHeader() {
       <Navbar expand="lg" className="shadow-sm">
         <Container className="text-center">
           <Navbar.Brand href="/" className="fw-bolder col-4">
-            <img src="/images/tripLogLogo.png" style={{ width: '30px' }}></img>{' '}
+            <img src="/images/tripLogLogo.png" style={{ width: '30px' }} alt=''></img>
             TripLog
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />

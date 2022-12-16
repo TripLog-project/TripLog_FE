@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import { Stack } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,9 +19,7 @@ export default function SelectList({
 
   // 여행계획 컴포넌트에 아이템 추가 (근데 공통으로 됨..)
   const handleAddItem = (idx) => {
-    console.log(idx);
     const currentItem = search[idx];
-    console.log(currentItem);
     const newSearch = [...search, { ...currentItem }];
     setSearch(newSearch);
 

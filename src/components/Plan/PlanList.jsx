@@ -1,5 +1,4 @@
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import styled from 'styled-components';
 import KakaoMap from '../../pages/Plan/KakaoMap';
 import PlanItem from './PlanItem';
@@ -8,7 +7,6 @@ import { setDateIdx } from '../../store/modules/triplog';
 
 const PlanList = ({ productItems, planItems, setPlanItems, onClick }) => {
   let state = useSelector((state) => state.triplog);
-  const nickName = useSelector((state) => state.users.userNickName);
   const users = useSelector((state) => state.users);
   let dispatch = useDispatch();
 
@@ -71,10 +69,6 @@ const PlanList = ({ productItems, planItems, setPlanItems, onClick }) => {
 };
 
 export default PlanList;
-
-const Title = styled.p`
-  font: 2rem/1 'Inter';
-`;
 
 const PlanBox = styled.div``;
 
