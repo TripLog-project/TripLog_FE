@@ -1,10 +1,6 @@
-import {
-  Tab,
-  Row,
-  Card,
-} from 'react-bootstrap';
+import { Tab, Row, Card } from 'react-bootstrap';
 
-export default function MyReview() {
+export default function MyReview({ data, nickName }) {
   return (
     <>
       <Tab.Pane eventKey="review">
@@ -18,43 +14,36 @@ export default function MyReview() {
             <br></br>
             <span>리뷰✏️ 입니다</span>
           </h1>
-
           <Row className="d-flex w-75 m-auto">
-            {option === 'review' && data.length === 0 ? (
-              <p>작성한 리뷰가 없습니다</p>
+            {data.length === 0 ? (
+              <div>작성한 리뷰가 없습니다</div>
             ) : (
-              data.map(function (b, j) {
+              data.map((a, i) => {
                 return (
                   <>
                     <Row
-                      key={j}
+                      key={i}
                       className="m-auto text-center w-75 shadow-sm"
                       style={{ fontSize: '12px' }}
                     >
                       <Card className="mt-3">
                         <Card.Body>
-                          <Card.Title
-                            className="mb-3 fs-6 bg-success text-light w-50 p-1 m-5 m-auto rounded"
-                            key={j}
-                          >
-                            {data[j].title}
+                          <Card.Title className="mb-3 fs-6 bg-success text-light w-50 p-1 m-5 m-auto rounded">
+                            {a.title}
                           </Card.Title>
                           <div className="d-flex">
                             <div className="border rounded w-50">
-                              <p className="mb-2 text-muted">
-                                {/* {data[j].dateFull.slice(0, 10)} */}
-                                {data[j].dateFull}
-                              </p>
+                              <p className="mb-2 text-muted">{a.dateFull}</p>
                               <Card.Text className="mb-2">
                                 ⭐⭐⭐⭐⭐
-                                <span> {data[j].star} </span>
-                                ❤👍🏼 조회수 <span>{data[j].view}</span>
+                                <span> {a.star} </span>
+                                ❤👍🏼 조회수 <span>{a.view}</span>
                               </Card.Text>
                             </div>
 
                             <div className="w-50 ms-2 border rounded">
                               <Card.Text className=" d-flex align-items-center justify-content-center h-100 fs-6">
-                                {data[j].content}
+                                {a.content}
                               </Card.Text>
                             </div>
                           </div>

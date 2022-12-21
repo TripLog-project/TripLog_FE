@@ -1,10 +1,7 @@
-import {
-  Container,
-  Tab,
-} from 'react-bootstrap';
+import { Container, Tab } from 'react-bootstrap';
 import CheckListRe from '../CheckList/CheckList_re';
 
-export default function MyCheckList() {
+export default function MyCheckList({ data, nickName }) {
   return (
     <>
       <Tab.Pane eventKey="checklist">
@@ -19,11 +16,7 @@ export default function MyCheckList() {
             <span>체크리스트📝 입니다.</span>
           </h1>
         </Container>
-        {data.length === 0 ? (
-          <p>작성한 체크리스트가 없습니다</p>
-        ) : (
-          <CheckListRe />
-        )}
+        <CheckListRe data={data} />
       </Tab.Pane>
     </>
   );
