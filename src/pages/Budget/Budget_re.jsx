@@ -1,31 +1,18 @@
 import { Container, Row, Col } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import { FaArrowAltCircleUp } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
 
-export default function BudgetRe() {
-  const updateCharge = useSelector((state) => state.budget.chargeUpdate)
+export default function BudgetRe({ data }) {
+  const budgetData = data[0].chargeList;
 
-  const [chargeData, setChargeData] = useState();
   const [users, setUsers] = useState(1);
 
   let totalCharge = [];
-  if (chargeData !== undefined) {
-    totalCharge = chargeData?.reduce((acc, cur, i) => {
+  if (budgetData !== undefined) {
+    totalCharge = budgetData?.reduce((acc, cur, i) => {
       return cur.charge + acc;
     }, 0);
   }
-  const nickName = useSelector((state) => state.users.userNickName);
-
-  useEffect(() => {
-    axios
-      .post('http://localhost:4000/charge', { nickName })
-      .then((res) => {
-        setChargeData(res.data.chargeList);
-      })
-      .catch(() => new Error('통신에러'));
-  }, [nickName, updateCharge]);
 
   return (
     <>
@@ -48,8 +35,8 @@ export default function BudgetRe() {
           </Row>
           <hr className="solid"></hr>
 
-          {chargeData &&
-            chargeData.map(function (a, i) {
+          {budgetData &&
+            budgetData.map(function (a, i) {
               return (
                 <Row className="mx-1" key={i}>
                   <Col className="col-3">
@@ -70,7 +57,9 @@ export default function BudgetRe() {
             <Col sm md lg="auto" className="fw-bold">
               ITEM COUNT :
             </Col>
-            <Col sm md lg="auto" className="text-end">{chargeData !== undefined ? chargeData.length : 0}개</Col>
+            <Col sm md lg="auto" className="text-end">
+              {budgetData !== undefined ? budgetData.length : 0}개
+            </Col>
           </Row>
 
           <Row>
@@ -84,7 +73,11 @@ export default function BudgetRe() {
               />
             </Col>
             <Col sm md lg="auto" className="text-end">
-              1인당 {parseInt(totalCharge / users).toLocaleString('ko-KR', {currency: 'KRW'})}원
+              1인당{' '}
+              {parseInt(totalCharge / users).toLocaleString('ko-KR', {
+                currency: 'KRW',
+              })}
+              원
             </Col>
           </Row>
 
