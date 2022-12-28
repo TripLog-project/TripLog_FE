@@ -1,18 +1,5 @@
 import { Form } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useEffect, useRef, useState } from 'react';
-
-// id, pw 유효성 확인을 위한 정규식
-const USEREMAIL_REGEX = new RegExp(
-  '^([0-9a-zA-Z_.-]+)@([0-9a-zA-Z_-]+)(.[0-9a-zA-Z_-]+){1,2}$'
-);
-const USERPW_REGEX = new RegExp('^(?=.*[a-zA-Z])(?=.*[0-9]).{8,}$');
-
-const ERROR_MSG = {
-  required: '필수 정보입니다.',
-  invalidUserEmail: '@ 를 사용하세요',
-  invalidUserPW: '8자 이상 영문, 숫자를 사용하세요.',
-};
+import { useEffect, useRef } from 'react';
 
 export default function Forminput({
   id,
@@ -23,9 +10,7 @@ export default function Forminput({
   inputProps,
   errMessage,
 }) {
-  const [nickname, setNickname] = useState('');
-  const [useremail, setUseremail] = useState('');
-  const [userpw, setUserpw] = useState('');
+
   const inputRef = useRef(null);
 
   // 최초 1회 로드 시 ID input에 포커스
@@ -34,7 +19,7 @@ export default function Forminput({
     if (id === 'nickname') {
       inputRef.current.focus();
     }
-  }, []);
+  }, [id]);
 
   return (
     <Form id="form" className="mb-2">

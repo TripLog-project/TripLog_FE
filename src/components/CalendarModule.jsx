@@ -2,22 +2,19 @@ import React, { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import styled from 'styled-components';
 import { useNavigate, useParams } from 'react-router-dom';
-
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addPlanDate } from '../store/modules/triplog';
 
 //CalendarModule
 function CalendarModule() {
-  let state = useSelector((state) => state.triplog);
   let dispatch = useDispatch();
 
   const [value, onChange] = useState(new Date());
   const [show, setShow] = useState(false);
-  const [planDate, setPlanDate] = useState([]);
+  // const [planDate, setPlanDate] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -31,12 +28,12 @@ function CalendarModule() {
     );
 
     // 날짜 계산의 경우 JS 에서 제공하는 형태로 해야 편리하기 때문에 Java 의 Date 형식에 맞게 계산되는 값이 들어가는 clickDateJava
-    let clickDateJava = [];
+    // let clickDateJava = [];
     // 한국어 문자열로 변환된 clickDate
     let clickDate = [];
     // 시작일을 저장하기 위한 start 변수
     let start = value[0];
-    let startJava = value[0];
+    // let startJava = value[0];
 
     // JS Date 형태의 Date 가 필요하면 ClickDateJava 의 데이터를 사용
     for (let i = 0; i < dateLength; i++) {
@@ -57,7 +54,7 @@ function CalendarModule() {
 
     // 만들어진 clickDate 또는 clickDateJava 를 바로 axios 로 전달
     // state 를 사용하기 이상하게 처음 선택 완료 클릭 시에, 자꾸 값이 안들어가는 문제가 생겨서 그냥 변수로 처리
-    setPlanDate(clickDate);
+    // setPlanDate(clickDate);
 
     dispatch(
       addPlanDate({

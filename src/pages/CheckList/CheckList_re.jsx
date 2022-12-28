@@ -16,7 +16,7 @@ import { checkUpdate } from '../../store/modules/check';
 
 export default function CheckListRe({ data }) {
   const checkListData = data[0];
-  const [checked, setChecked] = useState(data[0].checked);
+  const [checked, setChecked] = useState(data[0]?.checked);
 
   const dispatch = useDispatch();
 
@@ -47,7 +47,7 @@ export default function CheckListRe({ data }) {
       <Container className="m-auto mx-5 col-9">
         <AccordionCustom style={{ width: '130%' }}>
           <Accordion defaultActiveKey={0} alwaysOpen className="container mx-3">
-            {checkListData.items.map((a, i) => {
+            {checkListData?.items?.map((a, i) => {
               return (
                 <>
                   <Accordion.Item eventKey={i} key={i}>
@@ -61,7 +61,7 @@ export default function CheckListRe({ data }) {
                                 <Form.Check.Input
                                   type="checkbox"
                                   onChange={handleToggle(b)}
-                                  checked={checked.indexOf(b) !== -1}
+                                  checked={checked?.indexOf(b) !== -1}
                                 />
                                 <Form.Check.Label className="col-10">
                                   {a.content[j]}

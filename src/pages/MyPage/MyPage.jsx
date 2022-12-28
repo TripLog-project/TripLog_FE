@@ -83,9 +83,10 @@ export default function MyPage() {
   };
 
   const onErrorImg = (e) => {
-    e.target.src = process.env.PUBLIC_URL + '/images/defaultImage.png';
+    e.target.src = process.env.PUBLIC_URL + '/images/userNOIMG.png';
   };
 
+  if(data !== []) {
   return (
     <>
       <PageNav />
@@ -103,6 +104,7 @@ export default function MyPage() {
                   alt="회원 이미지"
                   style={{ width: '13rem', height: '13rem' }}
                   className="bg-dark rounded text-center d-block m-auto"
+                  onError={onErrorImg}
                 />
               ) : (
                 <img
@@ -140,7 +142,7 @@ export default function MyPage() {
                     <Nav.Link
                       eventKey="plans"
                       onClick={() => {
-                        navigate(`/MyPage/${nickName}/plans`);
+                        navigate(`/mypage/${nickName}/plans`);
                       }}
                     >
                       여행 조회
@@ -150,7 +152,7 @@ export default function MyPage() {
                     <Nav.Link
                       eventKey="checklist"
                       onClick={() => {
-                        navigate(`/MyPage/${nickName}/checklist`);
+                        navigate(`/mypage/${nickName}/checklist`);
                       }}
                     >
                       체크리스트
@@ -160,7 +162,7 @@ export default function MyPage() {
                     <Nav.Link
                       eventKey="charge"
                       onClick={() => {
-                        navigate(`/MyPage/${nickName}/charge`);
+                        navigate(`/mypage/${nickName}/charge`);
                       }}
                     >
                       가계부
@@ -170,7 +172,7 @@ export default function MyPage() {
                     <Nav.Link
                       eventKey="review"
                       onClick={() => {
-                        navigate(`/MyPage/${nickName}/review`);
+                        navigate(`/mypage/${nickName}/review`);
                       }}
                     >
                       리뷰
@@ -180,22 +182,12 @@ export default function MyPage() {
               </TabContainer>
             </Col>
 
-            <Col className="col-lg-9" style={{ width: '75%' }}>
+            <Col className="col-lg-9">
               <Tab.Content>
-                {(() => {
-                  switch (option) {
-                    case 'plans':
-                      return <Myplan data={data} nickName={nickName} />;
-                    case 'review':
-                      return <MyReview data={data} nickName={nickName} />;
-                    case 'checklist':
-                      return <MyCheckList data={data} nickName={nickName} />;
-                    case 'charge':
-                      return <MyBudget data={data} nickName={nickName} />;
-                    default:
-                      return null;
-                  }
-                })()}
+                {option === 'plans' ? <Myplan data={data} nickName={nickName} /> : <></>}
+                {option === 'review' ? <MyReview data={data} nickName={nickName} /> : <></>}
+                {option === 'checklist' ? <MyCheckList data={data} nickName={nickName} /> : <></>}
+                {option === 'charge' ? <MyBudget data={data} nickName={nickName} />: <></>}
               </Tab.Content>
             </Col>
           </Tab.Container>
@@ -205,7 +197,7 @@ export default function MyPage() {
     </>
   );
 }
-
+}
 const TabContainer = styled.div`
   .nav-pills .nav-link {
     color: #198754;

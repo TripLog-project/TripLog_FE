@@ -124,7 +124,6 @@ export default function triplog(state = initState, action) {
         planItems: dummyItem.planItems,
       };
     case SET_DATE_IDX:
-      console.log('idx', action.payload);
       return {
         ...state,
         planDateIdx: action.payload,
