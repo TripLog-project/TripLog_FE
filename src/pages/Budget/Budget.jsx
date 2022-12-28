@@ -178,7 +178,7 @@ export default function Budget() {
                       </Col>
                       <Col className="col-5 text-center">{a.title}</Col>
                       <Col className="col-2 text-center">
-                        {a.charge.toLocaleString('ko-KR', {
+                        {a.charge?.toLocaleString('ko-KR', {
                           currency: 'KRW',
                         })}
                       </Col>

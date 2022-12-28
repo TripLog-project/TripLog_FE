@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { FaArrowAltCircleUp } from 'react-icons/fa';
 
 export default function BudgetRe({ data }) {
-  const budgetData = data[0].chargeList;
+  const budgetData = data[0]?.chargeList;
 
   const [users, setUsers] = useState(1);
 
   let totalCharge = [];
   if (budgetData !== undefined) {
-    totalCharge = budgetData?.reduce((acc, cur, i) => {
+    totalCharge = budgetData.reduce((acc, cur, i) => {
       return cur.charge + acc;
     }, 0);
   }
