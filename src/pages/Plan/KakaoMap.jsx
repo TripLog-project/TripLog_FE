@@ -1,22 +1,18 @@
 /* global kakao */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import SelectList from '../../components/Plan/SelectList';
 import { useSelector } from 'react-redux';
 
 let pickMap = {
-  1: { MapY: '127.04', MapX: '37.59' }, //서울
-  6: { MapY: '129.16', MapX: '35.15' }, //부산
-  32: { MapY: '128.89', MapX: '37.79' }, //강원
-  35: { MapY: '129.33', MapX: '35.78' }, //경주
-  37: { MapY: '127.15', MapX: '35.81' }, //전주
-  39: { MapY: '126.54', MapX: '33.368' }, //제주
+  seoul: { MapY: '127.04', MapX: '37.59' }, //서울
+  busan: { MapY: '129.16', MapX: '35.15' }, //부산
+  gangneung: { MapY: '128.89', MapX: '37.79' }, //강원
+  gyeongju: { MapY: '129.33', MapX: '35.78' }, //경주
+  jeonju: { MapY: '127.15', MapX: '35.81' }, //전주
+  jeju: { MapY: '126.54', MapX: '33.368' }, //제주
 };
 
 export default function KakaoMap(props) {
-  console.log(pickMap[props.areaCode].MapX, pickMap[props.areaCode].MapY);
   const state = useSelector((state) => state.triplog);
 
   // Kakao Map 사용을 위한 useEffect
@@ -92,7 +88,7 @@ export default function KakaoMap(props) {
       });
     }
     // list가 변경 될 때 마다 실행
-  }, [state.planItems[props.idx]]);
+  }, [props.areaCode, props.idx, state.planItems]);
 
   return (
     <>
