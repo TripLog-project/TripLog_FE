@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
 import { Stack } from 'react-bootstrap';
-import styled from 'styled-components';
-
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addPlanItems } from '../../store/modules/triplog';
 
 export default function SelectList({
@@ -12,10 +9,9 @@ export default function SelectList({
   planItems,
   setPlanItems,
 }) {
-  let state = useSelector((state) => state.triplog);
+
   let dispatch = useDispatch();
 
-  const [clickItem, setClickItem] = useState({}); //받아온데이터 담기
 
   // 여행계획 컴포넌트에 아이템 추가 (근데 공통으로 됨..)
   const handleAddItem = (idx) => {
@@ -55,6 +51,7 @@ export default function SelectList({
             <img
               src={firstimage}
               style={{ width: '2.5rem', height: '2.5rem', borderRadius: '50%' }}
+              alt=''
             ></img>
 
             <Stack className="col-9 d-flex flex-column my-auto">
@@ -81,12 +78,3 @@ export default function SelectList({
     });
   }
 }
-
-const SelectBox = styled.div`
-  display: flex;
-
-  &:hover {
-    background-color: #999;
-    cursor: pointer;
-  }
-`;

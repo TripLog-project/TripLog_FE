@@ -20,7 +20,7 @@ function App() {
       <Route path="/Plan/:areaCode" element={<Plan />} />
       <Route path="/list/:region/:type" element={<List />} />
       <Route path="/detail/:region/:contentid" element={<DetailPage />} />
-      <Route path="/MyPage/:nickName/:option" element={<MyPage />} />
+      <Route path="/mypage/:nickName/:option" element={<MyPage />} />
       <Route path="/Budget" element={<Budget />} />
       <Route path="/CheckList" element={<CheckList />} />
       <Route path="/login" element={<Login />} />

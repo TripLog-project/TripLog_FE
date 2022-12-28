@@ -1,12 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
 import PlanList from '../../components/Plan/PlanList';
 import SelectList from '../../components/Plan/SelectList';
 import styled from 'styled-components';
-import data from '../../data';
-
 import {
   Container,
   Row,
@@ -16,14 +13,11 @@ import {
   Modal,
   Stack,
 } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import Welcome from './Welcome';
 import { addPlanItems } from '../../store/modules/triplog';
 import { useDispatch, useSelector } from 'react-redux';
-
-const { kakao } = window;
 
 let pickMap = [
   { areacode: '1', MapY: '127.04', MapX: '37.59' },
@@ -35,12 +29,9 @@ let pickMap = [
 ];
 
 export default function Plan() {
-  let h = 0;
   for (let i = 0; i < pickMap.length; i++) {
     for (let j = 0; j < pickMap[i].length; j++) {
-      if (pickMap[i][j].find((el) => el.areacode === areaCode) !== undefined) {
-        h = i;
-      }
+      if (pickMap[i][j].find((el) => el.areacode === areaCode) !== undefined) {}
     }
   }
 
@@ -48,11 +39,10 @@ export default function Plan() {
     axios
       .post('http://13.125.234.1:4000/plan', { state, nickName })
       .then((res) => {
-        console.log(res.data);
-        console.log('여행 계획 일정 전송 성공!!');
+        alert('여행 계획이 저장되었습니다')
       })
       .catch(() => {
-        console.log('여행 계획 일정 전송실패');
+        throw new Error('여행 계획 일정 전송실패')
       });
   };
 
@@ -62,18 +52,6 @@ export default function Plan() {
   const state = useSelector((state) => state.triplog);
   const nickName = useSelector((state) => state.users.userNickName);
 
-  const [tourData, setTourData] = useState([]);
-
-  // data 받아오기
-  useEffect(() => {
-    axios
-      .get(
-        `https://apis.data.go.kr/B551011/KorService/areaBasedList?serviceKey=rfaoGpiapHFqOcUT6bqfERRxy1WVxzOdOpEC3ChyAFPEfONdSMdRVNETTJKRhqTbPuZ2krpG2mQJMXDbyG74RA%3D%3D&numOfRows=498&pageNo=1&MobileOS=ETC&MobileApp=TripLog&_type=json&listYN=Y&arrange=B&contentTypeId=12&areaCode=${areaCode}`
-      )
-      .then((response) => {
-        setTourData(response.data.response.body.items.item);
-      });
-  }, []);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -91,25 +69,10 @@ export default function Plan() {
   const inputRef = useRef();
 
   // 클릭 한 여행지 저장을 위한 State
-  const [list, setList] = useState([]);
+  const [list] = useState([]);
 
-  const [productItems, setProductItems] = useState([]); //받아온데이터 담기
+  const [productItems] = useState([]); //받아온데이터 담기
   const [planItems, setPlanItems] = useState([]);
-  let [itemData] = [productItems];
-
-  const saveToLocalStorage = () => {
-    localStorage.setItem('planState', JSON.stringify(planItems));
-  };
-
-  const addPlanItem = (e) => {
-    const clickItem = itemData.find(
-      (item) => item.sigungucode === e.target.dataset.productid
-    );
-    console.log(clickItem);
-    console.log(productItems);
-  };
-  const [areaName, setAreaName] = useState(data);
-  let pickAreaName = areaName[h][0];
 
   return (
     <>
@@ -183,7 +146,7 @@ export default function Plan() {
                         setSearch(copy);
                       })
                       .catch(() => {
-                        console.log('실패');
+                        throw new Error('에러 발생')
                       });
                   }}
                 >
@@ -230,7 +193,6 @@ export default function Plan() {
                                     mapy: parseFloat(a.mapy),
                                   },
                                 ];
-                                console.log(copy, state.planDateIdx);
                                 dispatch(
                                   addPlanItems({ copy, idx: state.planDateIdx })
                                 );
@@ -244,6 +206,7 @@ export default function Plan() {
                                   borderRadius: '50%',
                                 }}
                                 onError={onErrorImg}
+                                alt=''
                               ></img>
                             </Stack>
 

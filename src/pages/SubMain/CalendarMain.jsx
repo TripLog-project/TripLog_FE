@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
 import { Container, Card } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
 import CalendarModule from '../../components/CalendarModule';
-import data from '../../data';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function CalendarMain({ planDate, pickAreaName, pickAreaImg }) {
-  const [value, onChange] = useState(new Date());
-  const [areaImg, setAreaImg] = useState(data);
+  let state = useSelector((state) => state.users);
+  const navigator = useNavigate();
 
   return (
     <Container>
@@ -16,7 +15,7 @@ export default function CalendarMain({ planDate, pickAreaName, pickAreaImg }) {
         <img alt="지역대표이미지" src={pickAreaImg} />
         <Card.ImgOverlay>
           <CalendarIcon>
-            <CalendarModule planDate={planDate} />
+            {state.isLogin ? <CalendarModule planDate={planDate} /> : navigator('/login')}
           </CalendarIcon>
           <AreaName>{pickAreaName}</AreaName>
           <Areatext>

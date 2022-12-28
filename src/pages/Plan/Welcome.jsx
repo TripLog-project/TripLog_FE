@@ -1,16 +1,12 @@
-import { Container, Row, Col, Badge, Card } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row, Col, Badge } from 'react-bootstrap';
 import styled from 'styled-components';
-
-import { useDispatch, useSelector } from 'react-redux';
-import { users } from '../../store/modules/users';
+import { useSelector } from 'react-redux';
 import PlanKakao from '../../components/share/PlanKakao';
 
 // detail 페이지의 submenu 부분
 export default function Welcome() {
   let state = useSelector((state) => state.triplog);
   let users = useSelector((state) => state.users);
-  let dispatch = useDispatch();
 
   if (users.isLogin) {
     return (
@@ -35,33 +31,33 @@ export default function Welcome() {
             </div>
           </Col>
           <Col className="d-flex justify-content-start m-3 mb-0">
-            <Plan_li>
+            <PlanLi>
               <a href="/Plan/:areaCode">
                 <PlanKakao />
               </a>
-            </Plan_li>
-            <Plan_li>
+            </PlanLi>
+            <PlanLi>
               <a href="/lists/1">
                 <Badge bg="success" text="light" className="fs-9">
                   #구경하러가기👀
                 </Badge>{' '}
               </a>
-            </Plan_li>
+            </PlanLi>
 
-            <Plan_li>
+            <PlanLi>
               <a href="/CheckList">
                 <Badge bg="dark" text="light" className="fs-9">
                   #나의 체크리스트🔖
                 </Badge>{' '}
               </a>
-            </Plan_li>
-            <Plan_li>
+            </PlanLi>
+            <PlanLi>
               <a href="/Budget">
                 <Badge bg="dark" text="light" className="fs-9">
                   #가계부 작성하러가기💸
                 </Badge>{' '}
               </a>
-            </Plan_li>
+            </PlanLi>
           </Col>
         </Row>
       </Container>
@@ -74,7 +70,7 @@ const Title = styled.p`
   font: 2rem/1 'Inter';
 `;
 
-const Plan_li = styled.li`
+const PlanLi = styled.li`
   list-style: none;
   display: inline-block;
   margin-right: 0.5rem;

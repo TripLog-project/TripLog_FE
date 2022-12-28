@@ -81,5 +81,5 @@ export default function KakaoRedirectHandler() {
       }
     }
     loginFetch();
-  }, []);
+  }, [dispatch, navigate]);
 }
