@@ -12,7 +12,7 @@ const PlanList = ({ productItems, planItems, setPlanItems, onClick }) => {
 
   if (users.isLogin) {
     return state.planDate.period.map(
-      ({ id, firstimage, title, src, addr1, sigungucode }, idx) => (
+      (a, idx) => (
         <Container
           sm={1}
           md={1}
