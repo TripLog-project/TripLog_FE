@@ -66,7 +66,7 @@ export default function Welcome() {
 }
 
 // style-components
-const Title = styled.p`
+const Title = styled.div`
   font: 2rem/1 'Inter';
 `;
 

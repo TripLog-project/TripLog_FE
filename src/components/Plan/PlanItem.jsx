@@ -23,6 +23,7 @@ const PlanItem = ({ onClick, productItems, idx }) => {
             width: '290px',
             backgroundColor: 'rgba(200, 200, 200, .2)',
           }}
+          key={i}
         >
           <img
             src={state.planItems[idx][i].Image}
