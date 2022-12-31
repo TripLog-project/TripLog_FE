@@ -29,8 +29,16 @@ export default function Login() {
 
   const [UserEmailValid, setUserEmailValid] = useState(false);
   const [UserPwValid, setUserPwValid] = useState(false);
-  const [fixEmailValue] = useState('thals0@gmail.com');
-  const [fixPwlValue] = useState('11111111aa');
+  const [fixEmailValue, setFixEmailValue] = useState('thals0@gmail.com');
+  const [fixPwValue, setFixpwValue] = useState('11111111aa');
+
+  const idValueChange = (e) => {
+    setFixEmailValue(e.target.value);
+  };
+
+  const pwValueChange = (e) => {
+    setFixpwValue(e.target.value);
+  };
 
   const handleEmail = (e) => {
     setUseremail(e.target.value);
@@ -57,7 +65,7 @@ export default function Login() {
     async function porfolioLogin() {
       const loginInfo = {
         email: fixEmailValue,
-        password: fixPwlValue,
+        password: fixPwValue,
       };
 
       const response = await fetch('http://localhost:4000/user/login ', {
@@ -108,7 +116,7 @@ export default function Login() {
             // value={useremail}
             // portfolio로그인하기
             value={fixEmailValue}
-            onChange={handleEmail}
+            onChange={idValueChange}
             inputProps={{
               type: 'text',
               placeholder: 'test@gmail.com',
@@ -125,8 +133,8 @@ export default function Login() {
             // normal로그인하기
             // value={userpw}
             // portfolio로그인하기
-            value={fixPwlValue}
-            onChange={handlePw}
+            value={fixPwValue}
+            onChange={pwValueChange}
             inputProps={{
               type: 'password',
               placeholder: '영문, 숫자 포함 8글자 이상',
