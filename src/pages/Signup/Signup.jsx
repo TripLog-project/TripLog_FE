@@ -31,7 +31,8 @@ export default function Users() {
           password: userpw,
         })
         .then(() => {
-          navigate('/');
+          alert('회원가입이 완료되었습니다.')
+          navigate('/login');
         })
         .catch(() => {
           new Error('통신에러')
