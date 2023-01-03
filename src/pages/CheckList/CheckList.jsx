@@ -88,7 +88,7 @@ export default function CheckList() {
               alwaysOpen
               className="container col-lg-6"
             >
-              {checklist.items.map(function (a, i) {
+              {checklist.items?.map(function (a, i) {
                 return (
                   <Accordion.Item eventKey={i} key={i}>
                     <Accordion.Header>
