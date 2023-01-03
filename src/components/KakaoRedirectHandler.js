@@ -49,7 +49,7 @@ export default function KakaoRedirectHandler() {
           };
 
           const registerResponse = await fetch(
-            'http://localhost:4000/user/register',
+            'http://3.35.13.65:4000/user/register',
             {
               method: 'POST',
               headers: {

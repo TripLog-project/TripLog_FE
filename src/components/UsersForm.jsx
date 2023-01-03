@@ -17,7 +17,7 @@ export default function UsersForm() {
         <Card className="p-5 mb-5">
           <div className="d-flex mb-5">
             <h4>회원가입</h4>
-            <a href="/Login" style={{ textDecoration: 'none' }}>
+            <a href="/login" style={{ textDecoration: 'none' }}>
               <Badge
                 bg="secondary"
                 text="light"

@@ -26,7 +26,7 @@ export default function List() {
   /* tourAPI */
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/list/${region}/${type}`)
+      .get(`http://3.35.13.65:4000/list/${region}/${type}`)
       .then((response) => {
         setData(response.data);
         setOkay(true);

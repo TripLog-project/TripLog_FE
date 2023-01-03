@@ -35,7 +35,7 @@ export default function Login() {
         password: fixPwValue,
       };
 
-      const response = await fetch('http://localhost:4000/user/login ', {
+      const response = await fetch('http://3.35.13.65:4000/user/login ', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ export default function Login() {
         <Card className="p-5 mb-5">
           <div className="d-flex mb-5">
             <h4>TripLog</h4>
-            <a href="/Users" style={{ textDecoration: 'none' }}>
+            <a href="/signup" style={{ textDecoration: 'none' }}>
               <Badge
                 bg="secondary"
                 text="light"

@@ -8,7 +8,7 @@ const Title = styled.p`
 export default function Myplan({ data, nickName }) {
   return (
     <>
-      <Tab.Pane eventKey="plans">
+      <Tab.Pane eventKey="plan">
         <Row className="m-auto">
           <h1
             className="fw-bold lh-base mt-2 mb-4 m-auto"

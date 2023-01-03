@@ -49,15 +49,15 @@ export default function CheckListRe({ data }) {
           <Accordion defaultActiveKey={0} alwaysOpen className="container mx-3">
             {checkListData?.items?.map((a, i) => {
               return (
-                <>
-                  <Accordion.Item eventKey={i} key={i}>
+                <div key={i}>
+                  <Accordion.Item eventKey={i}>
                     <Accordion.Header>{a.title}</Accordion.Header>
                     <Accordion.Body className="text-start">
                       <Form>
                         {a.content.map((b, j) => {
                           return (
-                            <>
-                              <Form.Check type="checkbox" key={j}>
+                            <div key={j}>
+                              <Form.Check type="checkbox">
                                 <Form.Check.Input
                                   type="checkbox"
                                   onChange={handleToggle(b)}
@@ -72,7 +72,7 @@ export default function CheckListRe({ data }) {
                                   onClick={() => {
                                     axios
                                       .delete(
-                                        'http://localhost:4000/checklist/deleteItem',
+                                        'http://3.35.13.65:4000/checklist/deleteItem',
                                         {
                                           data: {
                                             nickName: nickName,
@@ -92,7 +92,7 @@ export default function CheckListRe({ data }) {
                                   }}
                                 />
                               </Form.Check>
-                            </>
+                            </div>
                           );
                         })}
                         <InputGroup className="mt-3">
@@ -107,7 +107,7 @@ export default function CheckListRe({ data }) {
                             onClick={() => {
                               axios
                                 .post(
-                                  'http://localhost:4000/checklist/addItem',
+                                  'http://3.35.13.65:4000/checklist/addItem',
                                   {
                                     nickName: nickName,
                                     title: checkListData.items[i].title,
@@ -130,7 +130,7 @@ export default function CheckListRe({ data }) {
                       </Form>
                     </Accordion.Body>
                   </Accordion.Item>
-                </>
+                </div>
               );
             })}
             <Row className="mt-3 mx-1">
@@ -139,7 +139,7 @@ export default function CheckListRe({ data }) {
                   variant="success"
                   onClick={() => {
                     axios
-                      .post('http://localhost:4000/checklist/checked', {
+                      .post('http://3.35.13.65:4000/checklist/checked', {
                         nickName: nickName,
                         checked: checked,
                       })

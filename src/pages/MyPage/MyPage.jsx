@@ -8,7 +8,7 @@ import { FaCheck } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { imageUpdate } from '../../store/modules/users';
-import MyBudget from './MyBudget';
+import MyCharge from './MyCharge';
 import MyCheckList from './MyCheckList';
 import MyReview from './MyReview';
 import Myplan from './Myplan';
@@ -35,7 +35,7 @@ export default function MyPage() {
   // 데이터 받아오기
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/mypage/${nickName}/${option}`)
+      .get(`http://3.35.13.65:4000/mypage/${nickName}/${option}`)
       .then((res) => {
         setData(res.data);
       })
@@ -47,7 +47,7 @@ export default function MyPage() {
   // 이미지 가져오기
   useEffect(() => {
     axios
-      .post('http://localhost:4000/mypage/userimage', { nickName })
+      .post('http://3.35.13.65:4000/mypage/userimage', { nickName })
       .then((res) => {
         setUserImage(res.data.image);
       })
@@ -63,11 +63,11 @@ export default function MyPage() {
   };
   const userUploadImage = () => {
     axios
-      .post('http://localhost:4000/user/image', formData)
+      .post('http://3.35.13.65:4000/user/image', formData)
       .then((response) => response.data)
       .then((data) => {
         axios
-          .post('http://localhost:4000/user/upload', [
+          .post('http://3.35.13.65:4000/user/upload', [
             { nickName, image: data },
           ])
           .then(() => {
@@ -100,7 +100,7 @@ export default function MyPage() {
             <Col className="col-lg-3">
               {userImage !== '' ? (
                 <img
-                  src={`http://localhost:4000/uploads/${userImage}`}
+                  src={`http://3.35.13.65:4000/uploads/${userImage}`}
                   alt="회원 이미지"
                   style={{ width: '13rem', height: '13rem' }}
                   className="bg-dark rounded text-center d-block m-auto"
@@ -187,7 +187,7 @@ export default function MyPage() {
                 {option === 'plan' ? <Myplan data={data} nickName={nickName} /> : <></>}
                 {option === 'review' ? <MyReview data={data} nickName={nickName} /> : <></>}
                 {option === 'checklist' ? <MyCheckList data={data} nickName={nickName} /> : <></>}
-                {option === 'charge' ? <MyBudget data={data} nickName={nickName} />: <></>}
+                {option === 'charge' ? <MyCharge data={data} nickName={nickName} />: <></>}
               </Tab.Content>
             </Col>
           </Tab.Container>
