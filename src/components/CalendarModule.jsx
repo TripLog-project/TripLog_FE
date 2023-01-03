@@ -65,7 +65,7 @@ function CalendarModule() {
     );
 
     setShow(false);
-    Navigate(`/Plan/${areaCode}`);
+    Navigate(`/plan/${areaCode}`);
   };
 
   return (

@@ -86,7 +86,7 @@ export default function NavHeader() {
               </Nav.Link>
               <Nav.Link
                 onClick={() => {
-                  navigate(`/MyPage/${nickName}/plans`);
+                  navigate(`/mypage/${nickName}/plan`);
                 }}
                 className="d-sm-none d-md-inline-block text-success"
               >

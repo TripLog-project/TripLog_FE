@@ -16,15 +16,15 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Main />} />
-      <Route path="/SubMain/:areaCode" element={<SubMain />} />
-      <Route path="/Plan/:areaCode" element={<Plan />} />
+      <Route path="/submain/:areacode" element={<SubMain />} />
+      <Route path="/plan/:areacode" element={<Plan />} />
       <Route path="/list/:region/:type" element={<List />} />
       <Route path="/detail/:region/:contentid" element={<DetailPage />} />
       <Route path="/mypage/:nickName/:option" element={<MyPage />} />
-      <Route path="/Budget" element={<Budget />} />
-      <Route path="/CheckList" element={<CheckList />} />
+      <Route path="/charge" element={<Budget />} />
+      <Route path="/checkList" element={<CheckList />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/users" element={<Users />} />
+      <Route path="/user" element={<Users />} />
       <Route path="/oauth/callback/kakao" element={<KakaoRedirectHandler />} />
     </Routes>
   );

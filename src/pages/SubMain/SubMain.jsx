@@ -57,7 +57,7 @@ export default function SubMain({ planDate }) {
           </Row>
           <Row>
             <div className="d-block rounded text-center">
-              <a href="/budget">
+              <a href="/charge">
                 <ListImg src="/images/icons/가계부.png"></ListImg>
               </a>
               <a href="/checklist">
