@@ -10,7 +10,7 @@ import { login } from '../../store/modules/users';
 
 // 카카오톡 로그인 필요 정보, CLIENT_ID 로 REST API 키 사용 필요
 const KAKAO_CLIENT_ID = 'f25833457b45f3935443a269e01a48b1';
-const KAKAO_REDIRECT_URI = 'http://localhost:3000/oauth/callback/kakao';
+const KAKAO_REDIRECT_URI = 'http://3.35.13.65:3000/oauth/callback/kakao';
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`;
 
 export default function Login() {
