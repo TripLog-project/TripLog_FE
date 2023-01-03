@@ -37,7 +37,7 @@ export default function Welcome() {
               </a>
             </PlanLi>
             <PlanLi>
-              <a href="/lists/1">
+              <a href="/list/1">
                 <Badge bg="success" text="light" className="fs-9">
                   #구경하러가기👀
                 </Badge>{' '}
@@ -45,14 +45,14 @@ export default function Welcome() {
             </PlanLi>
 
             <PlanLi>
-              <a href="/CheckList">
+              <a href="/checkList">
                 <Badge bg="dark" text="light" className="fs-9">
                   #나의 체크리스트🔖
                 </Badge>{' '}
               </a>
             </PlanLi>
             <PlanLi>
-              <a href="/Budget">
+              <a href="/charge">
                 <Badge bg="dark" text="light" className="fs-9">
                   #가계부 작성하러가기💸
                 </Badge>{' '}

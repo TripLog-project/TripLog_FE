@@ -140,9 +140,9 @@ export default function MyPage() {
                 >
                   <Nav.Item>
                     <Nav.Link
-                      eventKey="plans"
+                      eventKey="plan"
                       onClick={() => {
-                        navigate(`/mypage/${nickName}/plans`);
+                        navigate(`/mypage/${nickName}/plan`);
                       }}
                     >
                       여행 조회
@@ -184,7 +184,7 @@ export default function MyPage() {
 
             <Col className="col-lg-9">
               <Tab.Content>
-                {option === 'plans' ? <Myplan data={data} nickName={nickName} /> : <></>}
+                {option === 'plan' ? <Myplan data={data} nickName={nickName} /> : <></>}
                 {option === 'review' ? <MyReview data={data} nickName={nickName} /> : <></>}
                 {option === 'checklist' ? <MyCheckList data={data} nickName={nickName} /> : <></>}
                 {option === 'charge' ? <MyBudget data={data} nickName={nickName} />: <></>}

@@ -18,15 +18,16 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Main />} />
-      <Route path="/SubMain/:areaCode" element={<SubMain />} />
-      {state.isLogin ? <Route path="/Plan/:areaCode" element={<Plan />} /> : <Route path="/Plan/:areaCode" element={<Login />} />}
+      <Route path="/subMain/:areaCode" element={<SubMain />} />
+      {state.isLogin ? <Route path="/plan/:areaCode" element={<Plan />} /> : <Route path="/plan/:areaCode" element={<Login />} />}
       <Route path="/list/:region/:type" element={<List />} />
       <Route path="/detail/:region/:contentid" element={<DetailPage />} />
-      <Route path="/mypage/:nickName/:option" element={<MyPage />} />
-      {state.isLogin ? <Route path="/Budget" element={<Budget />} /> : <Route path="/Budget" element={<Login />} />}
-      {state.isLogin ? <Route path="/CheckList" element={<CheckList />} /> : <Route path="/CheckList" element={<Login />} />}
+      {state.isLogin ? <Route path="/mypage/:nickName/:option" element={<MyPage />} /> : <Route path="/mypage/:nickName/:option" element={<Login />} />}
+      {state.isLogin ? <Route path="/charge" element={<Budget />} /> : <Route path="/charge" element={<Login />} />}
+      {state.isLogin ? <Route path="/checkList" element={<CheckList />} /> : <Route path="/checkList" element={<Login />} />}
       <Route path="/login" element={<Login />} />
-      <Route path="/oauth/callback/kakao" element={<KakaoRedirectHandler />} />
+      <Route path="/user" element={<Users />} />
+      <Route path="/oauth/callback/kakao" element={<KakaoRedirectHandler />} />    
     </Routes>
   );
 }

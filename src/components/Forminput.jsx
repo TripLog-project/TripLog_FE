@@ -22,7 +22,7 @@ export default function Forminput({
   }, [id]);
 
   return (
-    <Form id="form" className="mb-2">
+    <Form className="mb-2">
       <Form.Label htmlFor={id} className="d-block mb-1">
         {label}
       </Form.Label>
