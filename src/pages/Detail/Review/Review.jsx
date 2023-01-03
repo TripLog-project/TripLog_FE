@@ -60,7 +60,7 @@ export default function Review({ review, region }) {
   };
   const saveEmendReview = () => {
     axios
-      .post(`http://localhost:4000/review/emend`, [
+      .post(`http://3.35.13.65:4000/review/emend`, [
         { emendId, emendContent, nickName },
       ])
       .then(() => {
@@ -156,7 +156,7 @@ export default function Review({ review, region }) {
                           <Col className="col-3 col-lg-3 col-md-2 col-sm-3 me-2 text-center">
                             {a.userImage !== '' ? (
                               <Image
-                                src={`http://localhost:4000/uploads/${a.userImage}`}
+                                src={`http://3.35.13.65:4000/uploads/${a.userImage}`}
                                 roundedCircle
                                 alt=""
                                 style={{
@@ -257,7 +257,7 @@ export default function Review({ review, region }) {
                             ></div>
                           ) : (
                             <Image
-                              src={`http://localhost:4000/uploads/${a.image}`}
+                              src={`http://3.35.13.65:4000/uploads/${a.image}`}
                               onClick={(e) => {
                                 setImgSrc(e.target.src);
                                 handleImgShow();
@@ -279,7 +279,7 @@ export default function Review({ review, region }) {
                                     handleEmendShow();
                                     axios
                                       .get(
-                                        `http://localhost:4000/review/emend/${a._id}`
+                                        `http://3.35.13.65:4000/review/emend/${a._id}`
                                       )
                                       .then((res) => {
                                         setEmendContent(res.data.content);
@@ -300,7 +300,7 @@ export default function Review({ review, region }) {
                                     const star = a.star;
                                     axios
                                       .delete(
-                                        'http://localhost:4000/review/delete',
+                                        'http://3.35.13.65:4000/review/delete',
                                         {
                                           data: [
                                             {

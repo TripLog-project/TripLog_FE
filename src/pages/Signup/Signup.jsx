@@ -24,7 +24,7 @@ export default function Users() {
     // 회원 가입 정보를 백엔드로 보내기 전에 각각 입력이 제대로 들어왔는지 여부를 체크하고 해당 값이 정확히 입력 되어야만 전송
     if (UserNicknameValid && UserEmailValid && UserPwValid) {
       axios
-        .post('http://localhost:4000/user/register', {
+        .post('http://3.35.13.65:4000/user/register', {
           type: 'local',
           nickName: nickname,
           email: useremail,

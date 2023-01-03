@@ -48,7 +48,7 @@ export default function Charge() {
 
   useEffect(() => {
     axios
-      .post('http://localhost:4000/charge', { nickName })
+      .post('http://3.35.13.65:4000/charge', { nickName })
       .then((res) => {
         setChargeData(res.data.chargeList);
         setLoad(true);
@@ -58,7 +58,7 @@ export default function Charge() {
 
   const resetBudget = () => {
     axios
-      .post(`http://localhost:4000/charge/alldelete`, {
+      .post(`http://3.35.13.65:4000/charge/alldelete`, {
         nickName,
         chargeData,
       })
@@ -74,7 +74,7 @@ export default function Charge() {
     const title = textRef.current.value;
     const charge = chargeRef.current.value;
     axios
-      .post(`http://localhost:4000/charge/write`, {
+      .post(`http://3.35.13.65:4000/charge/write`, {
         chargeList: { date, title, charge: parseInt(charge) },
         nickName,
       })
@@ -190,7 +190,7 @@ export default function Charge() {
                           style={{ color: 'grey' }}
                           onClick={() => {
                             axios
-                              .post('http://localhost:4000/charge/delete', {
+                              .post('http://3.35.13.65:4000/charge/delete', {
                                 nickName,
                                 a,
                               })

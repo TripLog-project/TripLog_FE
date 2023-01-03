@@ -72,7 +72,7 @@ export default function CheckListRe({ data }) {
                                   onClick={() => {
                                     axios
                                       .delete(
-                                        'http://localhost:4000/checklist/deleteItem',
+                                        'http://3.35.13.65:4000/checklist/deleteItem',
                                         {
                                           data: {
                                             nickName: nickName,
@@ -107,7 +107,7 @@ export default function CheckListRe({ data }) {
                             onClick={() => {
                               axios
                                 .post(
-                                  'http://localhost:4000/checklist/addItem',
+                                  'http://3.35.13.65:4000/checklist/addItem',
                                   {
                                     nickName: nickName,
                                     title: checkListData.items[i].title,
@@ -139,7 +139,7 @@ export default function CheckListRe({ data }) {
                   variant="success"
                   onClick={() => {
                     axios
-                      .post('http://localhost:4000/checklist/checked', {
+                      .post('http://3.35.13.65:4000/checklist/checked', {
                         nickName: nickName,
                         checked: checked,
                       })

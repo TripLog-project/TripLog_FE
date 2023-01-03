@@ -56,11 +56,11 @@ export default function ReviewWrite({ title, region }) {
       alert('댓글 등록에 실패했습니다. 😥 내용을 작성해주세요!');
     } else if (upload) {
       axios
-        .post('http://localhost:4000/review/image', formData)
+        .post('http://3.35.13.65:4000/review/image', formData)
         .then((res) => res.data)
         .then((data) => {
           axios
-            .post('http://localhost:4000/review/write', [
+            .post('http://3.35.13.65:4000/review/write', [
               {
                 nickName,
                 userImage,
@@ -87,7 +87,7 @@ export default function ReviewWrite({ title, region }) {
         .catch(() => new Error('통신에러'));
     } else {
       axios
-        .post('http://localhost:4000/review/write', [
+        .post('http://3.35.13.65:4000/review/write', [
           {
             nickName,
             userImage,

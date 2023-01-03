@@ -46,7 +46,7 @@ export default function Detail() {
   // 전체 데이터
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/detail/${region}/${contentid}`)
+      .get(`http://3.35.13.65:4000/detail/${region}/${contentid}`)
       .then((response) => {
         setDetail(response.data);
         setLoad(true)
@@ -70,7 +70,7 @@ export default function Detail() {
   /* 좋아요 데이터 */
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/detail/${contentid}`)
+      .get(`http://3.35.13.65:4000/detail/${contentid}`)
       .then((res) => {
         setLikeClickUser(res.data.likeuser);
         setLike(res.data.like);
@@ -81,7 +81,7 @@ export default function Detail() {
   /* 리뷰 정보 */
   useEffect(() => {
     axios
-      .get(`http://localhost:4000/review/${contentid}`)
+      .get(`http://3.35.13.65:4000/review/${contentid}`)
       .then((res) => {
         setReview(res.data);
       })
@@ -108,7 +108,7 @@ export default function Detail() {
     }
     if (likeClickUser.includes(nickName) === false) {
       axios
-        .post('http://localhost:4000/like/plus', {
+        .post('http://3.35.13.65:4000/like/plus', {
           nickName,
           contentid,
           region,
@@ -120,7 +120,7 @@ export default function Detail() {
         .catch(() => new Error('통신에러'));
     } else {
       axios
-        .post('http://localhost:4000/like/minus', {
+        .post('http://3.35.13.65:4000/like/minus', {
           nickName,
           contentid,
           region,

@@ -27,7 +27,7 @@ export default function CheckList() {
 
   useEffect(() => {
     axios
-    .post('http://localhost:4000/checklist', { nickName })
+    .post('http://3.35.13.65:4000/checklist', { nickName })
     .then((res) => {
       setChecklist(res.data);
       setChecked(res.data.checked);
@@ -57,7 +57,7 @@ export default function CheckList() {
   // 체크박스 상태 저장
   const saveCheckList = () => {
     axios
-      .post('http://localhost:4000/checklist/checked', {
+      .post('http://3.35.13.65:4000/checklist/checked', {
         nickName: nickName,
         checked: checked,
       })
@@ -113,7 +113,7 @@ export default function CheckList() {
                                 onClick={() => {
                                   axios
                                     .delete(
-                                      'http://localhost:4000/checklist/deleteItem',
+                                      'http://3.35.13.65:4000/checklist/deleteItem',
                                       {
                                         data: {
                                           nickName: nickName,
@@ -143,7 +143,7 @@ export default function CheckList() {
                             onClick={() => {
                               axios
                                 .post(
-                                  'http://localhost:4000/checklist/addItem',
+                                  'http://3.35.13.65:4000/checklist/addItem',
                                   {
                                     nickName: nickName,
                                     title: checklist.items[i].title,
