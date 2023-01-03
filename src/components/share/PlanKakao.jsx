@@ -26,7 +26,7 @@ export default function PlanKakao() {
         description: '함께 여행가기',
         imageUrl: '/images/submain/제주.jpg',
         link: {
-          webUrl: 'http://13.125.234.1:3000',
+          webUrl: 'http://3.35.13.65:3000',
         },
       },
       social: {
@@ -37,7 +37,7 @@ export default function PlanKakao() {
         {
           title: '자세히 보기',
           link: {
-            webUrl: 'http://13.125.234.1:3000',
+            webUrl: 'http://3.35.13.65:3000',
           },
         },
       ],

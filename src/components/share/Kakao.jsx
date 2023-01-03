@@ -40,8 +40,8 @@ export default function ShareKakao({ tourData }) {
         {
           title: '홈페이지 가기',
           link: {
-            mobileWebUrl: 'http://13.125.234.1:3000/',
-            webUrl: 'http://13.125.234.1:3000/',
+            mobileWebUrl: 'http://3.35.13.65:3000/',
+            webUrl: 'http://3.35.13.65:3000/',
           },
         },
         {
