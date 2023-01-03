@@ -31,7 +31,8 @@ let pickMap = [
 export default function Plan() {
   for (let i = 0; i < pickMap.length; i++) {
     for (let j = 0; j < pickMap[i].length; j++) {
-      if (pickMap[i][j].find((el) => el.areacode === areaCode) !== undefined) {}
+      if (pickMap[i][j].find((el) => el.areacode === areaCode) !== undefined) {
+      }
     }
   }
 
@@ -39,10 +40,10 @@ export default function Plan() {
     axios
       .post('http://13.125.234.1:4000/plan', { state, nickName })
       .then((res) => {
-        alert('여행 계획이 저장되었습니다')
+        alert('여행 계획이 저장되었습니다');
       })
       .catch(() => {
-        throw new Error('여행 계획 일정 전송실패')
+        throw new Error('여행 계획 일정 전송실패');
       });
   };
 
@@ -51,7 +52,6 @@ export default function Plan() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.triplog);
   const nickName = useSelector((state) => state.users.userNickName);
-
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -112,7 +112,7 @@ export default function Plan() {
                   가고 싶은 여행지를 추가해보세요
                 </div>
                 <input
-                  onkeypress={'if(event.keyCode == 13){enterKey()}'}
+                  onKeyPress="if(event.keyCode == 13){enterKey()}"
                   type="text"
                   placeholder=" 여행지 검색"
                   ref={inputRef}
@@ -146,7 +146,7 @@ export default function Plan() {
                         setSearch(copy);
                       })
                       .catch(() => {
-                        throw new Error('에러 발생')
+                        throw new Error('에러 발생');
                       });
                   }}
                 >
@@ -154,78 +154,71 @@ export default function Plan() {
                 </Button>
               </div>
 
-              <div>
-                {
-                  //search의 map
-                  search.map(function (a, i) {
-                    return (
-                      <>
-                        <SelectBox
-                          className="d-block m-auto w-75 p-3"
+              {
+                //search의 map
+                search.map(function (a, i) {
+                  return (
+                    <SelectBox
+                      className="d-block m-auto w-75 p-3"
+                      onClick={() => {
+                        // copy를 사용하지 않고 선택된 장소의 정보만 전달하도록
+                        const pickedPlace = {
+                          title: a.title,
+                          Image: a.firstimage,
+                          addr1: a.addr1,
+                          mapx: parseFloat(a.mapx),
+                          mapy: parseFloat(a.mapy),
+                        };
+                        dispatch(
+                          addPlanItems({
+                            pickedPlace,
+                            idx: state.planDateIdx,
+                          })
+                        );
+                      }}
+                      key={i}
+                    >
+                      <div className="d-flex w-100 text-start">
+                        <Stack
                           onClick={() => {
-                            // copy를 사용하지 않고 선택된 장소의 정보만 전달하도록
-                            const pickedPlace = {
-                              title: a.title,
-                              Image: a.firstimage,
-                              addr1: a.addr1,
-                              mapx: parseFloat(a.mapx),
-                              mapy: parseFloat(a.mapy),
-                            };
+                            let copy = [
+                              ...list,
+                              {
+                                title: a.title,
+                                Image: a.firstimage,
+                                addr1: a.addr1,
+                                mapx: parseFloat(a.mapx),
+                                mapy: parseFloat(a.mapy),
+                              },
+                            ];
                             dispatch(
-                              addPlanItems({
-                                pickedPlace,
-                                idx: state.planDateIdx,
-                              })
+                              addPlanItems({ copy, idx: state.planDateIdx })
                             );
                           }}
-                          key={i}
                         >
-                          <div className="d-flex w-100 text-start">
-                            <Stack
-                              onClick={() => {
-                                let copy = [
-                                  ...list,
-                                  {
-                                    title: a.title,
-                                    Image: a.firstimage,
-                                    addr1: a.addr1,
-                                    mapx: parseFloat(a.mapx),
-                                    mapy: parseFloat(a.mapy),
-                                  },
-                                ];
-                                dispatch(
-                                  addPlanItems({ copy, idx: state.planDateIdx })
-                                );
-                              }}
-                            >
-                              <img
-                                src={a.firstimage}
-                                style={{
-                                  width: '2rem',
-                                  height: '2rem',
-                                  borderRadius: '50%',
-                                }}
-                                onError={onErrorImg}
-                                alt=''
-                              ></img>
-                            </Stack>
+                          <img
+                            src={a.firstimage}
+                            style={{
+                              width: '2rem',
+                              height: '2rem',
+                              borderRadius: '50%',
+                            }}
+                            onError={onErrorImg}
+                            alt=""
+                          ></img>
+                        </Stack>
 
-                            <Stack className="d-flex flex-column">
-                              <Title className="m-1 fs-6">{a.title}</Title>
-                              <Title
-                                className="m-1"
-                                style={{ fontSize: '12px' }}
-                              >
-                                {a.addr1}
-                              </Title>
-                            </Stack>
-                          </div>
-                        </SelectBox>
-                      </>
-                    );
-                  })
-                }
-              </div>
+                        <Stack className="d-flex flex-column">
+                          <Title className="m-1 fs-6">{a.title}</Title>
+                          <Title className="m-1" style={{ fontSize: '12px' }}>
+                            {a.addr1}
+                          </Title>
+                        </Stack>
+                      </div>
+                    </SelectBox>
+                  );
+                })
+              }
             </Row>
 
             {/* 여행지 리스트 보여주기 */}
