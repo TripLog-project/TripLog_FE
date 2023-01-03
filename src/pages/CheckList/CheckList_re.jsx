@@ -49,15 +49,15 @@ export default function CheckListRe({ data }) {
           <Accordion defaultActiveKey={0} alwaysOpen className="container mx-3">
             {checkListData?.items?.map((a, i) => {
               return (
-                <>
-                  <Accordion.Item eventKey={i} key={i}>
+                <div key={i}>
+                  <Accordion.Item eventKey={i}>
                     <Accordion.Header>{a.title}</Accordion.Header>
                     <Accordion.Body className="text-start">
                       <Form>
                         {a.content.map((b, j) => {
                           return (
-                            <>
-                              <Form.Check type="checkbox" key={j}>
+                            <div key={j}>
+                              <Form.Check type="checkbox">
                                 <Form.Check.Input
                                   type="checkbox"
                                   onChange={handleToggle(b)}
@@ -92,7 +92,7 @@ export default function CheckListRe({ data }) {
                                   }}
                                 />
                               </Form.Check>
-                            </>
+                            </div>
                           );
                         })}
                         <InputGroup className="mt-3">
@@ -130,7 +130,7 @@ export default function CheckListRe({ data }) {
                       </Form>
                     </Accordion.Body>
                   </Accordion.Item>
-                </>
+                </div>
               );
             })}
             <Row className="mt-3 mx-1">
