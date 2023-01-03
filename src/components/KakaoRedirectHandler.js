@@ -13,7 +13,7 @@ export default function KakaoRedirectHandler() {
     // 카카오 디벨롭퍼에서 주는 정보
     const GRANT_TYPE = 'authorization_code';
     const KAKAO_CLIENT_ID = 'f25833457b45f3935443a269e01a48b1';
-    const KAKAO_REDIRECT_URI = 'http://localhost:3000/oauth/callback/kakao';
+    const KAKAO_REDIRECT_URI = 'http://3.35.13.65:3000/oauth/callback/kakao';
 
     async function loginFetch() {
       const tokenResponse = await fetch(
