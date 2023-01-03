@@ -15,7 +15,7 @@ import {
 import { FaArrowAltCircleUp, FaTrash } from 'react-icons/fa';
 import { chargeUpdate } from '../../store/modules/budget';
 
-export default function Budget() {
+export default function Charge() {
   const dispatch = useDispatch();
 
   const nickName = useSelector((state) => state.users.userNickName);

@@ -65,7 +65,7 @@ export default function Login() {
         <Card className="p-5 mb-5">
           <div className="d-flex mb-5">
             <h4>TripLog</h4>
-            <a href="/Users" style={{ textDecoration: 'none' }}>
+            <a href="/signup" style={{ textDecoration: 'none' }}>
               <Badge
                 bg="secondary"
                 text="light"

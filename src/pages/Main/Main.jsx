@@ -63,7 +63,7 @@ export default function Main() {
               size="sm"
               className="flex-fill mx-1 mb-2 border"
               onClick={() => {
-                state.isLogin ? navigator('/budget') : navigator('/login');
+                state.isLogin ? navigator('/charge') : navigator('/login');
               }}
               variant="outline-success"
             >

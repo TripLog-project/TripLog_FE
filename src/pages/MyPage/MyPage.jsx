@@ -8,7 +8,7 @@ import { FaCheck } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { imageUpdate } from '../../store/modules/users';
-import MyBudget from './MyBudget';
+import MyCharge from './MyCharge';
 import MyCheckList from './MyCheckList';
 import MyReview from './MyReview';
 import Myplan from './Myplan';
@@ -187,7 +187,7 @@ export default function MyPage() {
                 {option === 'plan' ? <Myplan data={data} nickName={nickName} /> : <></>}
                 {option === 'review' ? <MyReview data={data} nickName={nickName} /> : <></>}
                 {option === 'checklist' ? <MyCheckList data={data} nickName={nickName} /> : <></>}
-                {option === 'charge' ? <MyBudget data={data} nickName={nickName} />: <></>}
+                {option === 'charge' ? <MyCharge data={data} nickName={nickName} />: <></>}
               </Tab.Content>
             </Col>
           </Tab.Container>

@@ -2,7 +2,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useState } from 'react';
 import { FaArrowAltCircleUp } from 'react-icons/fa';
 
-export default function BudgetRe({ data }) {
+export default function ChargeMypage({ data }) {
   const budgetData = data[0]?.chargeList;
 
   const [users, setUsers] = useState(1);

@@ -1,7 +1,7 @@
 import { Container, Tab } from 'react-bootstrap';
-import BudgetRe from '../Budget/Budget_re';
+import ChargeMypage from '../Charge/ChargeMypage';
 
-export default function MyBudget({ data, nickName }) {
+export default function MyCharge({ data, nickName }) {
   return (
     <>
       <Tab.Pane eventKey="charge">
@@ -16,7 +16,7 @@ export default function MyBudget({ data, nickName }) {
             <span>정산💸 내역입니다.</span>
           </h1>
         </Container>
-        <BudgetRe data={data}/>
+        <ChargeMypage data={data} />
       </Tab.Pane>
     </>
   );
