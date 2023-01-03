@@ -60,7 +60,7 @@ export default function NavHeader() {
               style={{ fontSize: '20px' }}
             >
               <Nav.Link
-                href="/Login"
+                href="/login"
                 variant="outline-success"
                 className="fs-5"
                 style={{ marginRight: '10px' }}
