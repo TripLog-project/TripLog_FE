@@ -6,6 +6,7 @@ import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import Forminput from '../../components/Forminput';
 import Btn from '../../components/Button';
+import { useRef } from 'react';
 
 const ERROR_MSG = {
   required: '필수 정보입니다.',
@@ -15,7 +16,7 @@ const ERROR_MSG = {
 
 export default function Users() {
   const [nickname, setNickname] = useState('');
-  const [useremail, setUseremail] = useState('');
+  const [useremail, setUseremail] = useState('d');
   const [userpw, setUserpw] = useState('');
   const [errorMsg] = useState(ERROR_MSG);
   const navigate = useNavigate();
@@ -78,6 +79,21 @@ export default function Users() {
     }
   };
 
+  const emailRef = useRef();
+  const nickNameRef = useRef();
+  const [ss, setSs] = useState('');
+  const namecheck = nickNameRef.current?.value
+  const abc = () => {
+    axios
+      .post('http://localhost:4000/user/register/namecheck', { namecheck })
+      .then((result) => {
+        setSs(result);
+        console.log(result);
+      })
+      .catch(() => {
+        console.log('실패');
+      });
+  };
   return (
     <>
       <Nav />
@@ -98,47 +114,30 @@ export default function Users() {
           </div>
 
           <Forminput
-            id={'nickname'}
-            label="이름(별명)"
-            value={nickname}
-            // 닉 네임 체크 함수로 변경
-            onChange={handleNickName}
-            inputProps={{
-              type: 'text',
-              placeholder: '닉네임을 입력해주세요.',
-            }}
-            // 닉 네임이 체크 결과 값에 따라 에러 메세지가 출력 되도록 수정
-            validText={!UserNicknameValid ? errorMsg.required : null}
+            id='email'
+            name='idcheck'
+            label="아이디"
+            type="text"
+            placeholder="test@gmail.com"
+            css={'text-success'}
+            ref={emailRef}
           />
 
           <Forminput
-            id={'useremail'}
-            label="아이디"
-            value={useremail}
-            onChange={handleEmail}
-            inputProps={{
-              type: 'text',
-              placeholder: 'test@gmail.com',
-            }}
-            validText={
-              !UserEmailValid && useremail.length > 0
-                ? errorMsg.invalidUserEmail
-                : null
-            }
-          />
-          <Forminput
-            id={'userpw'}
+            id='pw'
             label="비밀번호"
-            value={userpw}
-            onChange={handlePw}
-            inputProps={{
-              type: 'password',
-              placeholder: '영문, 숫자 포함 8글자 이상',
-            }}
-            validText={
-              !UserPwValid && userpw.length > 0 ? errorMsg.invalidUserPW : null
-            }
+            type='password'
           />
+
+          <Forminput
+            id='nickname'
+            name='namecheck'
+            label="이름(별명)"
+            type="text"
+            ref={nickNameRef}
+            onBlur={abc}
+          />
+
           <Btn
             id="submit"
             type="submit"
